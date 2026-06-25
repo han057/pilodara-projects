@@ -29,13 +29,12 @@ services:
       timeout: 5s
       retries: 5
 
-  # --- FinGuard (análisis de riesgo financiero multi-agente) ----------------
-  # Necesita los modelos qwen3:8b + nomic-embed-text en el Ollama compartido,
-  # la API FastAPI (main.py) y la UI Streamlit (interface_gui.py).
-  # La app lee OLLAMA_HOST y FMP_API_KEY (Financial Modeling Prep).
-
-  # Descarga (one-shot) de los modelos de FinGuard. Termina solo.
-  finguard-modelos:
+  # --- Modelos compartidos --------------------------------------------------
+  # Descarga (one-shot) de los modelos usados por todos los proyectos en el
+  # Ollama compartido. FinGuard y CustomerSupport usan los mismos modelos
+  # (gemma3:4b + nomic-embed-text), así que un único puller alcanza. Termina
+  # solo; los servicios que necesitan modelos dependen de su finalización.
+  modelos:
     image: ollama/ollama:latest
     restart: "no"
     depends_on:
@@ -46,19 +45,26 @@ services:
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |
-        ollama pull qwen3:8b
+        ollama pull gemma3:4b
         ollama pull nomic-embed-text
     networks:
       - ai_net
+
+  # --- FinGuard (análisis de riesgo financiero multi-agente) ----------------
+  # Usa los modelos gemma3:4b + nomic-embed-text en el Ollama compartido,
+  # la API FastAPI (main.py) y la UI Streamlit (interface_gui.py).
+  # La app lee OLLAMA_HOST, LLM_MODEL y FMP_API_KEY (Financial Modeling Prep).
 
   # API FastAPI (orquestación LangGraph + RAG sobre ChromaDB).
   finguard:
     build: ./FinGuard
     depends_on:
-      finguard-modelos:
+      modelos:
         condition: service_completed_successfully
     environment:
       - OLLAMA_HOST=http://ollama:11434
+      - LLM_MODEL=gemma3:4b
+      - EMBED_MODEL=nomic-embed-text
       # Definí FMP_API_KEY en tu entorno o en un .env junto a este compose.
       - FMP_API_KEY=${FMP_API_KEY:-}
     ports:
@@ -83,6 +89,8 @@ services:
         condition: service_healthy
     environment:
       - OLLAMA_HOST=http://ollama:11434
+      - LLM_MODEL=gemma3:4b
+      - EMBED_MODEL=nomic-embed-text
       - FMP_API_KEY=${FMP_API_KEY:-}
     command:
       - streamlit
@@ -117,26 +125,8 @@ services:
 
   # --- CustomerSupport (Router Smart WiFi 6) --------------------------------
   # Este proyecto necesita DOS contenedores (API FastAPI + UI Streamlit) y los
-  # modelos gemma3:4b y nomic-embed-text descargados en el Ollama compartido.
-
-  # Descarga (one-shot) de los modelos en el Ollama compartido. Termina solo.
-  customersupport-modelos:
-    image: ollama/ollama:latest
-    restart: "no"
-    depends_on:
-      ollama:
-        condition: service_healthy
-    environment:
-      - OLLAMA_HOST=http://ollama:11434
-      - LLM_MODEL=gemma3:4b
-      - EMBEDDING_MODEL=nomic-embed-text
-    entrypoint: ["/bin/sh", "-c"]
-    command:
-      - |
-        ollama pull "$${LLM_MODEL}"
-        ollama pull "$${EMBEDDING_MODEL}"
-    networks:
-      - ai_net
+  # modelos gemma3:4b y nomic-embed-text descargados en el Ollama compartido
+  # (los descarga el servicio `modelos`).
 
   # API FastAPI (lógica de negocio: grafo LangGraph + RAG sobre ChromaDB).
   customersupport-api:
@@ -144,7 +134,7 @@ services:
       context: ./CustomerSupportProject
       dockerfile: docker/Dockerfile
     depends_on:
-      customersupport-modelos:
+      modelos:
         condition: service_completed_successfully
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434

@@ -15,8 +15,8 @@ load_dotenv(dotenv_path=Path(__file__).parent.parent / ".env", override=True)
 # Ollama — reads OLLAMA_HOST env var set by docker-compose
 # Falls back to localhost for local development
 OLLAMA_HOST  = os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
-EMBED_MODEL  = "nomic-embed-text"
-LLM_MODEL    = "qwen3:8b"
+EMBED_MODEL  = os.getenv("EMBED_MODEL", "nomic-embed-text")
+LLM_MODEL    = os.getenv("LLM_MODEL", "gemma3:4b")
 
 # ChromaDB
 CHROMA_PATH      = "./data/chroma_db"

@@ -2,7 +2,7 @@
 # FinGuard — complete stack
 #
 # Services:
-#   ollama   — local LLM server (qwen3:8b + nomic-embed-text)
+#   ollama   — local LLM server (gemma3:4b + nomic-embed-text)
 #   finguard — FastAPI application
 #
 # Usage:
@@ -46,7 +46,7 @@ services:
       - OLLAMA_HOST=http://ollama:11434
     entrypoint: >
       /bin/sh -c "
-        ollama pull qwen3:8b &&
+        ollama pull gemma3:4b &&
         ollama pull nomic-embed-text &&
         echo 'Models ready.'
       "

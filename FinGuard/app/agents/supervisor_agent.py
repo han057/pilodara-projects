@@ -12,14 +12,15 @@
 # The LLM thinks before deciding what to do — not a hardcoded if/else router.
 
 import json
-import os
 from langchain_ollama import ChatOllama
+
+from app.config import OLLAMA_HOST, LLM_MODEL
 
 
 _LLM = ChatOllama(
-    model="qwen3:8b",
+    model=LLM_MODEL,
     temperature=0,
-    base_url=os.getenv("OLLAMA_HOST", "http://ollama:11434"),
+    base_url=OLLAMA_HOST,
 )
 
 _PROMPT_TEMPLATE = """You are a financial analysis supervisor for a multi-agent system.
