@@ -1,0 +1,173 @@
+# ---------------------------------------------------------------------------
+# Orquestador de la "Píldora AI"
+#
+# Un único Ollama compartido + un servicio por proyecto, todos en la misma
+# red interna (ai_net). Cada proyecto habla con Ollama por el nombre de
+# servicio: http://ollama:11434
+#
+# Para sumar un proyecto nuevo, copiá el bloque de un servicio existente:
+#   - build: ./<carpeta-del-proyecto>
+#   - publicá su puerto en uno libre del host (8002, 8003, ...)
+#   - apuntá su variable de URL de Ollama a http://ollama:11434
+#   - agregalo a la red ai_net y a depends_on de ollama
+# ---------------------------------------------------------------------------
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"          # acceso opcional desde el host
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+    networks:
+      - ai_net
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  finguard:
+    build: ./FinGuard
+    ports:
+      - "8000:8000"
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      # FinGuard debe leer esta variable para apuntar a Ollama (ver nota).
+      - OLLAMA_API_BASE_URL=http://ollama:11434
+    networks:
+      - ai_net
+
+  travelplanner:
+    build: ./travelplanner
+    ports:
+      - "8001:8000"            # 8000 ya lo usa finguard
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      - OLLAMA_URL=http://ollama:11434
+      - PYTHONUNBUFFERED=1
+    networks:
+      - ai_net
+
+  # --- CustomerSupport (Router Smart WiFi 6) --------------------------------
+  # Este proyecto necesita DOS contenedores (API FastAPI + UI Streamlit) y los
+  # modelos gemma3:4b y nomic-embed-text descargados en el Ollama compartido.
+
+  # Descarga (one-shot) de los modelos en el Ollama compartido. Termina solo.
+  customersupport-modelos:
+    image: ollama/ollama:latest
+    restart: "no"
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - LLM_MODEL=gemma3:4b
+      - EMBEDDING_MODEL=nomic-embed-text
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        ollama pull "$${LLM_MODEL}"
+        ollama pull "$${EMBEDDING_MODEL}"
+    networks:
+      - ai_net
+
+  # API FastAPI (lógica de negocio: grafo LangGraph + RAG sobre ChromaDB).
+  customersupport-api:
+    build:
+      context: ./CustomerSupportProject
+      dockerfile: docker/Dockerfile
+    depends_on:
+      customersupport-modelos:
+        condition: service_completed_successfully
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - LLM_MODEL=gemma3:4b
+      - EMBEDDING_MODEL=nomic-embed-text
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - TIMEOUT_SECONDS=300
+    command:
+      - python
+      - -m
+      - uvicorn
+      - app.main:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
+    ports:
+      - "8002:8000"            # 8000 finguard, 8001 travelplanner
+    volumes:
+      - customersupport_chroma:/app/chroma_db
+    networks:
+      - ai_net
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import urllib.request;
+          urllib.request.urlopen("http://127.0.0.1:8000/health", timeout=5)
+      interval: 10s
+      timeout: 6s
+      retries: 60
+      start_period: 90s
+
+  # UI Streamlit (punto de entrada para el usuario).
+  customersupport-streamlit:
+    build:
+      context: ./CustomerSupportProject
+      dockerfile: docker/Dockerfile
+    depends_on:
+      customersupport-api:
+        condition: service_healthy
+    environment:
+      - API_BASE_URL=http://customersupport-api:8000
+      - TIMEOUT_SECONDS=300
+    command:
+      - python
+      - -m
+      - streamlit
+      - run
+      - streamlit_app.py
+      - --server.address
+      - 0.0.0.0
+      - --server.port
+      - "8501"
+      - --server.headless
+      - "true"
+      - --browser.gatherUsageStats
+      - "false"
+    ports:
+      - "8501:8501"
+    networks:
+      - ai_net
+
+  # --- Próximos proyectos: duplicar el bloque de arriba ---------------------
+  # nuevo_proyecto:
+  #   build: ./nuevo_proyecto
+  #   ports:
+  #     - "8002:8000"
+  #   depends_on:
+  #     ollama:
+  #       condition: service_healthy
+  #   environment:
+  #     - OLLAMA_URL=http://ollama:11434
+  #   networks:
+  #     - ai_net
+
+volumes:
+  ollama_data:
+  customersupport_chroma:
+
+networks:
+  ai_net:
+    driver: bridge
