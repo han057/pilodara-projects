@@ -14,7 +14,6 @@ RUN python -m pip install --upgrade pip \
 COPY app ./app
 COPY data ./data
 COPY scripts/check_project.py ./scripts/check_project.py
-COPY .streamlit ./.streamlit
 COPY streamlit_app.py ./
 
 RUN mkdir -p /app/chroma_db \
