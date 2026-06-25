@@ -1,0 +1,104 @@
+# docker-compose.yml
+# FinGuard — complete stack
+#
+# Services:
+#   ollama   — local LLM server (qwen3:8b + nomic-embed-text)
+#   finguard — FastAPI application
+#
+# Usage:
+#   docker-compose up              # start everything
+#   docker-compose up --build      # rebuild and start
+#   docker-compose down            # stop everything
+#
+# First startup pulls ~5.5 GB of models — takes 10-15 minutes.
+# Subsequent startups are fast (models cached in Docker volume).
+
+services:
+
+  # -------------------------------------------------------------------------
+  # Ollama — local LLM server
+  # -------------------------------------------------------------------------
+  ollama:
+    image: ollama/ollama:latest
+    container_name: finguard_ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama    # persist downloaded models
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    restart: unless-stopped
+
+  # -------------------------------------------------------------------------
+  # Model initialization — pulls models on first run then exits
+  # -------------------------------------------------------------------------
+  ollama-init:
+    image: ollama/ollama:latest
+    container_name: finguard_ollama_init
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    entrypoint: >
+      /bin/sh -c "
+        ollama pull qwen3:8b &&
+        ollama pull nomic-embed-text &&
+        echo 'Models ready.'
+      "
+    volumes:
+      - ollama_models:/root/.ollama
+    restart: "no"
+
+  # -------------------------------------------------------------------------
+  # FinGuard — FastAPI application
+  # -------------------------------------------------------------------------
+  finguard:
+    build: .
+    container_name: finguard_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data              # persist ChromaDB between restarts
+      - ./docs:/app/docs              # persist downloaded SEC filings
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    env_file:
+      - .env                          # FMP_API_KEY loaded from .env
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: unless-stopped
+
+
+  # -------------------------------------------------------------------------
+  # Streamlit - GUI interface
+  # -------------------------------------------------------------------------
+  streamlit:
+    build: .
+    container_name: finguard_streamlit
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./docs:/app/docs
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    env_file:
+      - .env
+    depends_on:
+      ollama:
+        condition: service_healthy
+    command: ["streamlit", "run", "interface_gui.py", "--server.address", "0.0.0.0"]
+    restart: unless-stopped
+# -------------------------------------------------------------------------
+# Volumes
+# -------------------------------------------------------------------------
+volumes:
+  ollama_models:
+    name: finguard_ollama_models      # named volume — survives docker-compose down
+

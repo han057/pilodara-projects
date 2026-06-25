@@ -1,0 +1,10 @@
+.venv/
+chroma_db/
+data/chroma_db/
+__pycache__/
+.env
+traces.jsonl
+docs/
+sec_tickers_cache.json
+*.htm
+*.html
