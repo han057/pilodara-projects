@@ -1,0 +1,16 @@
+.git
+.gitignore
+.venv
+.vscode
+__pycache__
+*.py[cod]
+*.log
+.env
+chroma_db
+docker
+CONTRIBUTING.md
+graph.excalidraw
+README.md
+ROADMAP.md
+preparar_proyecto.bat
+run_streamlit.bat
