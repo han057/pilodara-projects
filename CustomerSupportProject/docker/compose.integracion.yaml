@@ -1,0 +1,121 @@
+# Fragmento preparado para incluirlo en un Compose que contenga otros proyectos.
+# Los servicios, volúmenes y variables tienen prefijo para evitar colisiones.
+
+services:
+  router-smartwifi6-ollama:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    environment:
+      OLLAMA_KEEP_ALIVE: ${ROUTER_OLLAMA_KEEP_ALIVE:--1}
+    volumes:
+      - router_smartwifi6_ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 15s
+
+  router-smartwifi6-modelos:
+    image: ollama/ollama:latest
+    restart: "no"
+    depends_on:
+      router-smartwifi6-ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_HOST: http://router-smartwifi6-ollama:11434
+      LLM_MODEL: ${ROUTER_LLM_MODEL:-gemma3:4b}
+      EMBEDDING_MODEL: ${ROUTER_EMBEDDING_MODEL:-nomic-embed-text}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        ollama pull "$${LLM_MODEL}"
+        ollama pull "$${EMBEDDING_MODEL}"
+
+  router-smartwifi6-api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      router-smartwifi6-modelos:
+        condition: service_completed_successfully
+    environment:
+      OLLAMA_BASE_URL: http://router-smartwifi6-ollama:11434
+      LLM_MODEL: ${ROUTER_LLM_MODEL:-gemma3:4b}
+      EMBEDDING_MODEL: ${ROUTER_EMBEDDING_MODEL:-nomic-embed-text}
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+      HUMAN_PHONE: ${ROUTER_HUMAN_PHONE:-900 123 456}
+      HUMAN_EMAIL: ${ROUTER_HUMAN_EMAIL:-soporte.smartwifi6@example.com}
+      TEMPERATURE: ${ROUTER_TEMPERATURE:-0.2}
+      TIMEOUT_SECONDS: ${ROUTER_TIMEOUT_SECONDS:-300}
+    command:
+      - python
+      - -m
+      - uvicorn
+      - app.main:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
+    ports:
+      - "${ROUTER_API_PORT_HOST:-8000}:8000"
+    volumes:
+      - router_smartwifi6_chroma_data:/app/chroma_db
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import urllib.request;
+          urllib.request.urlopen("http://127.0.0.1:8000/health", timeout=5)
+      interval: 10s
+      timeout: 6s
+      retries: 60
+      start_period: 90s
+
+  router-smartwifi6-streamlit:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      router-smartwifi6-api:
+        condition: service_healthy
+    environment:
+      API_BASE_URL: http://router-smartwifi6-api:8000
+      TIMEOUT_SECONDS: ${ROUTER_TIMEOUT_SECONDS:-300}
+    command:
+      - python
+      - -m
+      - streamlit
+      - run
+      - streamlit_app.py
+      - --server.address
+      - 0.0.0.0
+      - --server.port
+      - "8501"
+      - --server.headless
+      - "true"
+      - --browser.gatherUsageStats
+      - "false"
+    ports:
+      - "${ROUTER_STREAMLIT_PORT_HOST:-8501}:8501"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import urllib.request;
+          urllib.request.urlopen("http://127.0.0.1:8501/_stcore/health", timeout=5)
+      interval: 10s
+      timeout: 6s
+      retries: 30
+      start_period: 30s
+
+volumes:
+  router_smartwifi6_ollama_data:
+  router_smartwifi6_chroma_data:
