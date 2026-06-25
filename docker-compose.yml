@@ -29,16 +29,76 @@ services:
       timeout: 5s
       retries: 5
 
-  finguard:
-    build: ./FinGuard
-    ports:
-      - "8000:8000"
+  # --- FinGuard (análisis de riesgo financiero multi-agente) ----------------
+  # Necesita los modelos qwen3:8b + nomic-embed-text en el Ollama compartido,
+  # la API FastAPI (main.py) y la UI Streamlit (interface_gui.py).
+  # La app lee OLLAMA_HOST y FMP_API_KEY (Financial Modeling Prep).
+
+  # Descarga (one-shot) de los modelos de FinGuard. Termina solo.
+  finguard-modelos:
+    image: ollama/ollama:latest
+    restart: "no"
     depends_on:
       ollama:
         condition: service_healthy
     environment:
-      # FinGuard debe leer esta variable para apuntar a Ollama (ver nota).
-      - OLLAMA_API_BASE_URL=http://ollama:11434
+      - OLLAMA_HOST=http://ollama:11434
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        ollama pull qwen3:8b
+        ollama pull nomic-embed-text
+    networks:
+      - ai_net
+
+  # API FastAPI (orquestación LangGraph + RAG sobre ChromaDB).
+  finguard:
+    build: ./FinGuard
+    depends_on:
+      finguard-modelos:
+        condition: service_completed_successfully
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      # Definí FMP_API_KEY en tu entorno o en un .env junto a este compose.
+      - FMP_API_KEY=${FMP_API_KEY:-}
+    ports:
+      - "8000:8000"
+    volumes:
+      - finguard_data:/app/data        # ChromaDB persistente
+      - finguard_docs:/app/docs        # filings SEC descargados
+    networks:
+      - ai_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health"]
+      interval: 10s
+      timeout: 6s
+      retries: 30
+      start_period: 60s
+
+  # UI Streamlit de FinGuard (8501 ya lo usa customersupport-streamlit).
+  finguard-streamlit:
+    build: ./FinGuard
+    depends_on:
+      finguard:
+        condition: service_healthy
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - FMP_API_KEY=${FMP_API_KEY:-}
+    command:
+      - streamlit
+      - run
+      - interface_gui.py
+      - --server.address
+      - 0.0.0.0
+      - --server.port
+      - "8501"
+      - --server.headless
+      - "true"
+    ports:
+      - "8502:8501"
+    volumes:
+      - finguard_data:/app/data
+      - finguard_docs:/app/docs
     networks:
       - ai_net
 
@@ -167,6 +227,8 @@ services:
 volumes:
   ollama_data:
   customersupport_chroma:
+  finguard_data:
+  finguard_docs:
 
 networks:
   ai_net:
