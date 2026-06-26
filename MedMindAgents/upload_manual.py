@@ -4,9 +4,13 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from pathlib import Path
 import json
+import os
 import sys
 
-embeddings = OllamaEmbeddings(model="nomic-embed-text")
+# Misma URL de Ollama que main.py: configurable por entorno para que funcione
+# tanto en local (localhost) como dentro del contenedor (http://ollama:11434).
+OLLAMA_HOST = os.getenv("OLLAMA_API_BASE_URL", "http://localhost:11434")
+embeddings = OllamaEmbeddings(model="nomic-embed-text", base_url=OLLAMA_HOST)
 splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=100)
 
 # Conectar (o crear) un store persistente
