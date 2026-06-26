@@ -30,10 +30,11 @@ services:
       retries: 5
 
   # --- Modelos compartidos --------------------------------------------------
-  # Descarga (one-shot) de los modelos usados por todos los proyectos en el
-  # Ollama compartido. FinGuard y CustomerSupport usan los mismos modelos
-  # (gemma3:4b + nomic-embed-text), así que un único puller alcanza. Termina
-  # solo; los servicios que necesitan modelos dependen de su finalización.
+  # Descarga (one-shot) de los modelos usados por los proyectos en el Ollama
+  # compartido. La mayoría usa gemma3:4b + nomic-embed-text; TravelPlanner usa
+  # qwen3:1.7b (más nomic-embed-text para su RAG). Un único puller los baja
+  # todos. Termina solo; los servicios que necesitan modelos dependen de su
+  # finalización.
   modelos:
     image: ollama/ollama:latest
     restart: "no"
@@ -46,6 +47,7 @@ services:
     command:
       - |
         ollama pull gemma3:4b
+        ollama pull qwen3:1.7b
         ollama pull nomic-embed-text
     networks:
       - ai_net
@@ -110,18 +112,61 @@ services:
     networks:
       - ai_net
 
-  travelplanner:
-    build: ./travelplanner
-    ports:
-      - "8001:8000"            # 8000 ya lo usa finguard
-    depends_on:
-      ollama:
-        condition: service_healthy
+  # --- TravelPlanner (planificador de viajes multi-agente) ------------------
+  # A diferencia del resto, este proyecto persiste sesiones/mensajes en
+  # PostgreSQL (servicio travelplanner-db). Usa qwen3:1.7b (LLM) +
+  # nomic-embed-text (embeddings RAG) en el Ollama compartido. App FastAPI
+  # (api.main:app) que también sirve la UI estática en /. Lee
+  # OLLAMA_API_BASE_URL, OLLAMA_MODEL, DATABASE_URL y RAPIDAPI_KEY (Booking
+  # via RapidAPI: definila en tu entorno o en un .env junto a este compose).
+
+  # Base de datos PostgreSQL de TravelPlanner.
+  travelplanner-db:
+    image: postgres:16-alpine
+    restart: unless-stopped
     environment:
-      - OLLAMA_URL=http://ollama:11434
-      - PYTHONUNBUFFERED=1
+      - POSTGRES_USER=travelplanner
+      - POSTGRES_PASSWORD=travelplanner
+      - POSTGRES_DB=travelplanner
+    volumes:
+      - travelplanner_pgdata:/var/lib/postgresql/data
     networks:
       - ai_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U travelplanner -d travelplanner"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  travelplanner:
+    build: ./travelplanner
+    depends_on:
+      modelos:
+        condition: service_completed_successfully
+      travelplanner-db:
+        condition: service_healthy
+    environment:
+      - OLLAMA_API_BASE_URL=http://ollama:11434
+      - OLLAMA_MODEL=qwen3:1.7b
+      - DATABASE_URL=postgresql://travelplanner:travelplanner@travelplanner-db:5432/travelplanner
+      - RAPIDAPI_KEY=${RAPIDAPI_KEY:-}
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8001:8000"            # 8000 ya lo usa finguard
+    networks:
+      - ai_net
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import urllib.request;
+          urllib.request.urlopen("http://127.0.0.1:8000/health/", timeout=5)
+      interval: 10s
+      timeout: 6s
+      retries: 30
+      start_period: 30s
 
   # --- CustomerSupport (Router Smart WiFi 6) --------------------------------
   # Este proyecto necesita DOS contenedores (API FastAPI + UI Streamlit) y los
@@ -307,6 +352,7 @@ volumes:
   finguard_data:
   finguard_docs:
   optimizadorcv_chroma:
+  travelplanner_pgdata:
 
 networks:
   ai_net:

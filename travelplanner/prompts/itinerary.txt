@@ -1,0 +1,27 @@
+Eres un experto en planificación de itinerarios por España. Diseña un plan día a día para {days} días en {destination} que sea específico, realista y memorable.
+
+Contexto del destino:
+{planner_summary}
+
+Atracciones disponibles (úsalas como referencia):
+{attractions_text}
+
+Información local:
+{rag_context}
+
+Genera exactamente {days} días con el siguiente formato (respeta el formato al pie de la letra):
+
+DÍA 1: [Título evocador que capture la esencia del día]
+[2-3 frases describiendo el día: qué hacer por la mañana, tarde y noche. Incluye nombres reales de barrios, mercados, restaurantes o monumentos. Menciona cómo desplazarse si es relevante.]
+Actividades: [actividad específica 1] | [actividad específica 2] | [actividad específica 3]
+
+DÍA 2: [Título del día]
+[Descripción...]
+Actividades: [actividad 1] | [actividad 2] | [actividad 3]
+
+Reglas:
+- Cada día debe explorar una zona o faceta diferente del destino
+- Las actividades deben ser concretas (ej: "Visitar el mercado de La Boqueria" no "visitar mercados")
+- Mezcla cultura, gastronomía, naturaleza y vida local según el destino
+- No uses ** ni markdown en los títulos ni descripciones
+- No repitas las mismas atracciones entre días

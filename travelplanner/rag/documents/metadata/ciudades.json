@@ -1,0 +1,34 @@
+{
+  "ciudades": [
+    {
+      "nombre": "Madrid",
+      "region": "Comunidad de Madrid",
+      "tags": ["capital", "arte", "museos", "vida nocturna"]
+    },
+    {
+      "nombre": "Barcelona",
+      "region": "Cataluña",
+      "tags": ["modernismo", "playa", "arquitectura"]
+    },
+    {
+      "nombre": "Sevilla",
+      "region": "Andalucía",
+      "tags": ["flamenco", "arquitectura árabe", "historia"]
+    },
+    {
+      "nombre": "Valencia",
+      "region": "Comunidad Valenciana",
+      "tags": ["paella", "playa", "arquitectura futurista"]
+    },
+    {
+      "nombre": "Málaga",
+      "region": "Andalucía",
+      "tags": ["playa", "museos", "gastronomía"]
+    },
+    {
+      "nombre": "Granada",
+      "region": "Andalucía",
+      "tags": ["alhambra", "historia árabe", "montaña"]
+    }
+  ]
+}
