@@ -3,6 +3,9 @@
 # Palette: Petroleum Blue · Graphite · White · Semantic accents
 # Run with: streamlit run interface_gui.py
 
+import base64
+from pathlib import Path
+
 import streamlit as st
 from app.graph import graph
 
@@ -12,6 +15,19 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",  # sidebar siempre abierto al arrancar
 )
+
+
+# Logo del banner: se incrusta como base64 porque el hero se renderiza con
+# st.markdown(unsafe_allow_html=True) y no puede referenciar archivos locales.
+@st.cache_data
+def _load_logo_b64() -> str:
+    logo_path = Path(__file__).parent / "logo.jpeg"
+    if logo_path.exists():
+        return base64.b64encode(logo_path.read_bytes()).decode()
+    return ""
+
+
+_LOGO_B64 = _load_logo_b64()
 
 # ─────────────────────────────────────────────
 # DESIGN SYSTEM
@@ -155,7 +171,22 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
   margin-bottom: 1.5rem;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
 }
+.hero-logo {
+  flex: 0 0 auto;
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  background: #FFFFFF;
+  border-radius: 10px;
+  padding: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+  z-index: 1;
+}
+.hero-text { flex: 1 1 auto; }
 .main-hero::before {
   content: '';
   position: absolute;
@@ -187,7 +218,7 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
   font-size: 0.68rem;
   color: #5B8DB8;
   letter-spacing: 0.04em;
-  margin-bottom: 1.4rem;
+  margin-bottom: 0;
 }
 
 /* ── Input inside hero ── */
@@ -563,11 +594,18 @@ with st.sidebar:
 # ─────────────────────────────────────────────
 # HERO
 # ─────────────────────────────────────────────
-st.markdown("""
+_hero_logo = (
+    f'<img class="hero-logo" src="data:image/jpeg;base64,{_LOGO_B64}" alt="FinGuard España"/>'
+    if _LOGO_B64 else ""
+)
+st.markdown(f"""
 <div class="main-hero">
-  <div class="hero-eyebrow">Multi-agent financial risk analysis</div>
-  <div class="hero-title">Financial <span class="accent">Risk</span> Intelligence</div>
-  <div class="hero-sub">SEC EDGAR · FMP API · ChromaDB · LangGraph · qwen3:8b</div>
+  {_hero_logo}
+  <div class="hero-text">
+    <div class="hero-eyebrow">Multi-agent financial risk analysis</div>
+    <div class="hero-title">Financial <span class="accent">Risk</span> Intelligence</div>
+    <div class="hero-sub">SEC EDGAR · FMP API · ChromaDB · LangGraph · gemma3:4b</div>
+  </div>
 </div>
 """, unsafe_allow_html=True)
 
