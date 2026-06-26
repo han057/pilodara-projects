@@ -201,6 +201,34 @@ services:
     networks:
       - ai_net
 
+  # --- Social Content Automation (generación de campañas multi-agente) ------
+  # App FastAPI única (main.py). Usa gemma3:4b (chat) + nomic-embed-text
+  # (embeddings RAG sobre vectorstore ChromaDB ya incluido en la imagen).
+  # Lee OLLAMA_API_BASE_URL para llegar al Ollama compartido.
+  social-content:
+    build: ./social-content-automation
+    depends_on:
+      modelos:
+        condition: service_completed_successfully
+    environment:
+      - OLLAMA_API_BASE_URL=http://ollama:11434
+    ports:
+      - "8003:8000"            # 8000 finguard, 8001 travelplanner, 8002 cs-api
+    networks:
+      - ai_net
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import urllib.request;
+          urllib.request.urlopen("http://127.0.0.1:8000/", timeout=5)
+      interval: 10s
+      timeout: 6s
+      retries: 30
+      start_period: 30s
+
   # --- Próximos proyectos: duplicar el bloque de arriba ---------------------
   # nuevo_proyecto:
   #   build: ./nuevo_proyecto
