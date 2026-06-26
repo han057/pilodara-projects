@@ -259,6 +259,36 @@ services:
       retries: 30
       start_period: 30s
 
+  # --- MedMindAgents (asistente médico RAG sobre manuales clínicos) ---------
+  # App FastAPI única (main.py). Usa gemma3:4b (LLM) + nomic-embed-text
+  # (embeddings RAG sobre los manuales en docs/, indexados en ChromaDB).
+  # Lee OLLAMA_API_BASE_URL para llegar al Ollama compartido.
+  medmindagents:
+    build: ./MedMindAgents
+    depends_on:
+      modelos:
+        condition: service_completed_successfully
+    environment:
+      - OLLAMA_API_BASE_URL=http://ollama:11434
+    ports:
+      - "8005:8000"            # 8004 optimizador-cv, 8003 social-content, ...
+    volumes:
+      - medmind_chroma:/app/chroma_db
+    networks:
+      - ai_net
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import urllib.request;
+          urllib.request.urlopen("http://127.0.0.1:8000/health", timeout=5)
+      interval: 10s
+      timeout: 6s
+      retries: 30
+      start_period: 30s
+
   # --- Próximos proyectos: duplicar el bloque de arriba ---------------------
   # nuevo_proyecto:
   #   build: ./nuevo_proyecto
@@ -278,6 +308,7 @@ volumes:
   finguard_data:
   finguard_docs:
   optimizadorcv_chroma:
+  medmind_chroma:
 
 networks:
   ai_net:
