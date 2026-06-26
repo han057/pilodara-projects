@@ -228,7 +228,9 @@ wheels/
 # Virtual environments
 .venv
 .langgraph_api
-chroma_db
+# chroma_db se versiona poblado (RAG prebuilt, horneado en la imagen) para
+# poder usarlo sin re-indexar. El índice se regenera con upload_manual.py.
+# chroma_db
 
 
 indexed_files.json
