@@ -1,0 +1,35 @@
+Título: Desarrollador .NET / C# Senior
+Empresa: EnterpriseSoft Ibérica
+Ubicación: Madrid (presencial)
+Salario: 42.000 - 55.000 € brutos/año
+
+Descripción:
+Consultora de software empresarial busca Desarrollador .NET Senior para proyectos de transformación digital en grandes empresas.
+
+Responsabilidades:
+- Desarrollo de aplicaciones con .NET 6+ y C#
+- Diseño de APIs RESTful con ASP.NET Core
+- Implementación de microservicios con Azure Service Fabric
+- Integración con bases de datos SQL Server y Entity Framework
+- Testing con xUnit y Moq
+- Code review y mentoring de desarrolladores junior
+
+Requisitos:
+- 5+ años de experiencia con .NET y C#
+- Dominio de ASP.NET Core y Entity Framework
+- Experiencia con SQL Server y optimización de consultas
+- Conocimiento de Azure (App Services, Functions, Service Bus)
+- Docker y CI/CD con Azure DevOps
+- Patrones de diseño (DDD, CQRS, Repository)
+
+Deseable:
+- Experiencia con Blazor o MAUI
+- Conocimiento de RabbitMQ o Azure Service Bus
+- Certificaciones Microsoft (AZ-204, AZ-305)
+- Experiencia en sector bancario o seguros
+
+Beneficios:
+- Seguro médico y dental
+- Plan de pensiones
+- Tickets restaurante
+- Parking de empresa

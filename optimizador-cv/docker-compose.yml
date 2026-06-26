@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: optimizador-cv-app
+    ports:
+      - "8000:8000"
+    environment:
+      OLLAMA_API_BASE_URL: http://host.docker.internal:11434
+    volumes:
+      - ./chroma_db:/app/chroma_db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

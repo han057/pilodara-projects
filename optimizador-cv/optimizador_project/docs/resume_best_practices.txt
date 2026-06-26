@@ -1,0 +1,151 @@
+# MEJORES PRÁCTICAS PARA ESCRIBIR CURRÍCULUMS
+
+## 1. Estructura General Recomendada
+
+### Orden de Secciones (de arriba abajo)
+1. Nombre y Contacto (centrado, 12pt)
+2. Resumen Profesional o Objetivo (2-3 líneas)
+3. Experiencia Laboral (más relevante primero)
+4. Habilidades Técnicas (categorizadas)
+5. Educación
+6. Certificaciones y Cursos
+7. Idiomas (si es relevante)
+8. Proyectos Personales (opcional pero valorado)
+
+### Longitud
+- Junior (0-2 años): 1 página
+- Mid-level (2-5 años): 1-1.5 páginas
+- Senior (5+ años): 1.5-2 páginas
+- Máximo: 2 páginas
+
+## 2. Redacción Efectiva
+
+### Verbos de Acción Potentes
+- Implemented, Developed, Built, Created
+- Managed, Led, Directed, Oversaw
+- Improved, Optimized, Enhanced, Increased
+- Analyzed, Investigated, Evaluated, Assessed
+- Designed, Architected, Structured, Organized
+
+### Uso de Cuantificables
+✓ "Reducí tiempo de procesamiento en 40%"  
+✓ "Lideré equipo de 5 desarrolladores"  
+✓ "Implementé sistema que procesó 1M transacciones/mes"  
+✗ "Trabajé en proyectos importantes"  
+✗ "Hice muchas cosas"  
+
+### Estructura de Logro
+[Verbo de acción] + [Acción específica] + [Resultado cuantificable]
+
+Ejemplo:
+"Implemented automated testing pipeline reducing deployment time by 50%, improving team efficiency"
+
+## 3. Sección de Experiencia Laboral
+
+### Formato Recomendado
+```
+Company Name | City, Country
+Job Title | Month Year – Month Year
+
+• Responsibility or achievement with quantifiable result
+• Another key accomplishment
+• Impact or metric achieved
+```
+
+### Consejos
+- Máximo 5 bullets por puesto (3-4 ideal)
+- Empieza cada bullet con un verbo de acción
+- Incluye tecnologías específicas usado
+- Resalta logros, no tareas
+- Ordena por relevancia, no por importancia
+
+## 4. Sección de Habilidades Técnicas
+
+### Estructura Sugerida
+```
+Technical Skills
+
+Languages: Python, Java, JavaScript, SQL
+Frameworks: Django, FastAPI, React, Spring Boot
+Databases: PostgreSQL, MongoDB, Redis
+Tools & Platforms: Git, Docker, AWS, Kubernetes
+```
+
+### Criterios
+- Incluye solo habilidades que puedas explicar/demostrar
+- Agrupa por categoría
+- Prioriza habilidades relevantes para el puesto objetivo
+- Usa términos estándar de la industria
+
+## 5. Sección de Educación
+
+### Formato
+```
+Degree Name in Major
+University Name | City, Country | Graduation: Month Year
+
+Additional relevant coursework: Course 1, Course 2, Course 3
+```
+
+### Tips
+- Si eres recién egresado, enfatiza proyectos académicos relevantes
+- Si tienes 5+ años experiencia, educación puede ir al final
+- GPA: solo incluye si es 3.7+ (en escala 4.0)
+
+## 6. Lo Que LOS RECLUTADORES BUSCAN
+
+### En los primeros 10 segundos
+- ¿Tiene experiencia relevante?
+- ¿Tiene las habilidades técnicas?
+- ¿Es fácil de leer?
+
+### Palabras clave a buscar
+- Años de experiencia
+- Tecnologías específicas mencionadas en la oferta
+- Logros cuantificables
+- Claridad en rol y responsabilidades
+
+## 7. Lo Que DEBES EVITAR
+
+✗ Errores de ortografía/gramática  
+✗ Inconsistencia en formatos  
+✗ Información irrelevante para el puesto  
+✗ Bromas o tono demasiado casual  
+✗ Descripciones genéricas sin detalles  
+✗ Demasiado color o formateo complicado  
+✗ CV idéntico para todos los puestos  
+✗ Información obsoleta (tecnologías muy viejas)  
+
+## 8. Personalización por Oferta
+
+### Antes de Enviar
+1. Lee la oferta completamente
+2. Identifica 5-10 palabras clave principales
+3. Verifica que aparezcan en tu CV
+4. Ajusta tu resumen para matchear descripción del rol
+5. Reordena experiencias por relevancia
+6. Destaca logros relacionados con el puesto
+
+### Consejo Profesional
+Un CV "bien ajustado" para una oferta específica tiene 20-40% más probabilidades de pasar los filtros ATS.
+
+## 9. Ejemplos de Frases Fuertes
+
+✓ "Led cross-functional team to deliver project 2 weeks ahead of schedule"  
+✓ "Architected microservices reducing API response time by 35%"  
+✓ "Optimized database queries improving application performance by 60%"  
+✓ "Mentored 3 junior developers, 2 were promoted within 18 months"  
+✓ "Established CI/CD pipeline reducing deployment errors by 90%"  
+
+## 10. Checklist Final
+
+- [ ] Sin errores de ortografía/gramática
+- [ ] Consistencia en formatos (fechas, bullets, espacios)
+- [ ] Solo 1-2 páginas
+- [ ] Verbos de acción al inicio de cada bullet
+- [ ] Logros con números/métricas
+- [ ] Palabras clave de la oferta incluidas
+- [ ] Fácil de leer y escanear
+- [ ] Información relevante ordenada por importancia
+- [ ] PDF o DOCX en formato estándar
+- [ ] Contacto claro en la parte superior

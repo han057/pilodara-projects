@@ -1,0 +1,36 @@
+Título: DevOps Engineer
+Empresa: CloudNative Systems
+Ubicación: Madrid (híbrido)
+Salario: 50.000 - 65.000 € brutos/año
+
+Descripción:
+Buscamos un DevOps Engineer senior para liderar la automatización de infraestructura y CI/CD de nuestros servicios en la nube.
+
+Responsabilidades:
+- Diseñar y mantener infraestructura como código (IaC)
+- Implementar pipelines CI/CD con GitHub Actions o GitLab CI
+- Gestionar clusters de Kubernetes en producción
+- Monitorizar servicios con Prometheus, Grafana y alertas
+- Implementar estrategias de deployment (blue-green, canary)
+- Gestionar seguridad y compliance de la infraestructura
+
+Requisitos:
+- 5+ años de experiencia en DevOps/SRE
+- Dominio de Kubernetes y Helm
+- Experiencia con Terraform o Pulumi
+- Conocimiento de AWS o GCP a nivel avanzado
+- Experiencia con Docker y containerización
+- Linux administration y scripting (Bash, Python)
+- Conocimiento de networking (DNS, load balancing, firewalls)
+
+Deseable:
+- Experiencia con service mesh (Istio, Linkerd)
+- Conocimiento de observabilidad (OpenTelemetry)
+- Certificaciones AWS/GCP/Kubernetes
+- Experiencia con Ansible o Chef
+
+Beneficios:
+- Stock options
+- Seguro médico familiar
+- Coche de empresa
+- Formación ilimitada

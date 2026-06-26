@@ -1,0 +1,33 @@
+Título: Desarrollador Java Backend
+Empresa: FinanceApp S.L.
+Ubicación: Barcelona (presencial)
+Salario: 40.000 - 52.000 € brutos/año
+
+Descripción:
+Buscamos un Desarrollador Java Backend con experiencia en sistemas bancarios y financieros. Trabajarás en el desarrollo de plataformas de pagos y servicios de alta disponibilidad.
+
+Responsabilidades:
+- Desarrollo de microservicios con Spring Boot y Spring Cloud
+- Integración con sistemas bancarios y APIs de terceros
+- Implementación de patrones de resiliencia (Circuit Breaker, Retry)
+- Diseño de bases de datos relacionales y optimización de consultas
+- Desarrollo de APIs RESTful documentadas con OpenAPI
+
+Requisitos:
+- 4+ años de experiencia con Java 11+
+- Dominio de Spring Boot, Spring Security y Spring Data
+- Experiencia con PostgreSQL y Oracle
+- Conocimiento de Kafka para mensajería asíncrona
+- Experiencia con Docker y Kubernetes
+- Git, Jenkins y CI/CD pipelines
+
+Deseable:
+- Experiencia en sector bancario o fintech
+- Conocimiento de Redis y Elasticsearch
+- Certificaciones Java o AWS
+
+Beneficios:
+- Seguro médico y dental
+- Plan de pensiones de empresa
+- Comedor subvencionado
+- Formación y certificaciones pagadas

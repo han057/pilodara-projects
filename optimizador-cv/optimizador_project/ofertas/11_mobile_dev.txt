@@ -1,0 +1,34 @@
+Título: Desarrollador Mobile iOS/Android
+Empresa: AppFactory Studio
+Ubicación: Barcelona (remoto)
+Salario: 38.000 - 50.000 € brutos/año
+
+Descripción:
+Estudio de desarrollo móvil busca Desarrollador Mobile para crear aplicaciones nativas y multiplataforma para clientes internacionales.
+
+Responsabilidades:
+- Desarrollo de apps multiplataforma con React Native o Flutter
+- Integración de APIs RESTful y servicios backend
+- Implementación de push notifications y almacenamiento local
+- Publicación y mantenimiento en App Store y Google Play
+- Testing y optimización de rendimiento
+
+Requisitos:
+- 3+ años de experiencia en desarrollo mobile
+- Dominio de React Native o Flutter
+- Experiencia con APIs REST y GraphQL
+- Conocimiento de SQLite y almacenamiento offline
+- Git y CI/CD para mobile (Fastlane)
+- Experiencia con Firebase (Auth, Firestore, Analytics)
+
+Deseable:
+- Experiencia nativa en Swift/Kotlin
+- Conocimiento de animaciones y UI/UX mobile
+- Experiencia con pagos in-app
+- Publicación de apps propias
+
+Beneficios:
+- Trabajo 100% remoto
+- Dispositivos Apple y Android para testing
+- Presupuesto de formación
+- Horario flexible

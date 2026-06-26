@@ -1,0 +1,34 @@
+Título: QA Automation Engineer
+Empresa: QualitySoft International
+Ubicación: Sevilla (híbrido)
+Salario: 35.000 - 45.000 € brutos/año
+
+Descripción:
+Buscamos un QA Automation Engineer para liderar la estrategia de testing automatizado en nuestros productos de software empresarial.
+
+Responsabilidades:
+- Diseño e implementación de frameworks de testing automatizado
+- Creación de tests E2E con Selenium/Cypress
+- Testing de APIs REST con Postman y scripts Python
+- Integración de tests en pipelines CI/CD
+- Análisis de resultados y reporting de calidad
+
+Requisitos:
+- 3+ años de experiencia en QA/testing automatizado
+- Dominio de Python o JavaScript para scripting
+- Experiencia con Selenium WebDriver, Cypress o Playwright
+- Conocimiento de herramientas de CI/CD (Jenkins, GitHub Actions)
+- Experiencia con testing de APIs (Postman, REST Assured)
+- SQL y bases de datos para validación de datos
+
+Deseable:
+- Certificación ISTQB
+- Experiencia con testing de rendimiento (JMeter, k6)
+- Conocimiento de contenedores Docker
+- Experiencia con testing móvil (Appium)
+
+Beneficios:
+- Seguro médico privado
+- Flexibilidad horaria real
+- 25 días de vacaciones
+- Plan de carrera estructurado

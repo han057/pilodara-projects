@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimizador de Curriculums</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+    <style>
+        :root {
+            --bg-deep: #17110f;
+            --bg-pit: #0f1310;
+            --panel: rgba(33, 25, 21, 0.84);
+            --panel-soft: rgba(43, 34, 28, 0.7);
+            --line: rgba(246, 223, 196, 0.14);
+            --line-strong: rgba(246, 223, 196, 0.28);
+            --text-main: #f2dfc8;
+            --text-dim: #bca995;
+            --text-faint: #8a7d72;
+            --accent: #d5643d;
+            --accent-soft: #f1b467;
+            --moss: #73855d;
+            --mint: #9dc4a3;
+            --alert: #d97a64;
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --shadow-main: 0 28px 70px rgba(0, 0, 0, 0.34);
+            --spring: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "IBM Plex Sans", sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 12% 18%, rgba(213, 100, 61, 0.24), transparent 28%),
+                radial-gradient(circle at 78% 12%, rgba(115, 133, 93, 0.18), transparent 24%),
+                linear-gradient(140deg, #1a1310 0%, #111513 44%, #17120f 100%);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.22;
+            background-image:
+                radial-gradient(rgba(255, 248, 239, 0.14) 0.7px, transparent 0.7px),
+                radial-gradient(rgba(255, 248, 239, 0.06) 0.7px, transparent 0.7px);
+            background-position: 0 0, 13px 17px;
+            background-size: 21px 21px, 29px 29px;
+            mix-blend-mode: soft-light;
+        }
+
+        iconify-icon {
+            display: inline-flex;
+            flex-shrink: 0;
+        }
+
+        .page {
+            width: min(1380px, calc(100% - 28px));
+            margin: 18px auto 56px;
+        }
+
+        .board {
+            position: relative;
+            display: grid;
+            gap: 24px;
+            grid-template-columns: minmax(0, 1.28fr) minmax(310px, 0.72fr);
+        }
+
+        .panel {
+            position: relative;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-main);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+        }
+
+        .panel::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(160deg, rgba(255, 255, 255, 0.04), transparent 30%),
+                linear-gradient(340deg, rgba(213, 100, 61, 0.07), transparent 36%);
+            pointer-events: none;
+        }
+
+        .hero-panel {
+            min-height: 420px;
+            padding: 32px;
+        }
+
+        .hero-grid {
+            display: grid;
+            gap: 26px;
+            grid-template-columns: minmax(0, 1.14fr) minmax(230px, 0.86fr);
+            align-items: end;
+            height: 100%;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            color: var(--accent-soft);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            background: rgba(255, 244, 235, 0.04);
+        }
+
+        .hero-copy h1 {
+            max-width: 9ch;
+            margin-top: 18px;
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: clamp(3rem, 5vw, 5.4rem);
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+        }
+
+        .hero-copy h1 span {
+            display: block;
+            color: var(--accent-soft);
+        }
+
+        .deck {
+            display: grid;
+            gap: 12px;
+            margin-top: 18px;
+            max-width: 360px;
+        }
+
+        .deck p {
+            font-size: 1rem;
+            color: var(--text-dim);
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            background: rgba(255, 244, 235, 0.04);
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .hero-badge strong {
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: 1.05rem;
+            color: var(--accent-soft);
+        }
+
+        .poster {
+            position: relative;
+            min-height: 332px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 247, 239, 0.16);
+            transform: rotate(-2.5deg);
+            align-self: stretch;
+            background:
+                linear-gradient(180deg, rgba(16, 12, 9, 0.08), rgba(16, 12, 9, 0.62)),
+                url("https://picsum.photos/seed/cv-workbench/900/1200") center/cover;
+        }
+
+        .poster::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, transparent 10%, rgba(13, 11, 9, 0.72) 82%),
+                linear-gradient(45deg, rgba(213, 100, 61, 0.18), transparent 44%);
+        }
+
+        .poster-note {
+            position: absolute;
+            right: 16px;
+            bottom: 18px;
+            width: min(230px, calc(100% - 28px));
+            padding: 16px;
+            background: rgba(19, 15, 12, 0.76);
+            border: 1px solid rgba(255, 246, 237, 0.14);
+            border-radius: 18px;
+            backdrop-filter: blur(16px);
+        }
+
+        .poster-note p:first-child {
+            color: var(--accent-soft);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .poster-note p + p {
+            margin-top: 8px;
+            color: var(--text-main);
+            font-size: 1rem;
+            line-height: 1.2;
+        }
+
+        .studio {
+            display: grid;
+            gap: 24px;
+        }
+
+        .work-panel {
+            padding: 26px;
+        }
+
+        .work-top {
+            display: grid;
+            gap: 18px;
+            grid-template-columns: minmax(0, 1fr) minmax(190px, 0.48fr);
+            align-items: start;
+        }
+
+        .section-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.77rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-faint);
+        }
+
+        .work-title {
+            margin-top: 10px;
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: clamp(1.8rem, 2.6vw, 2.6rem);
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+        }
+
+        .work-note {
+            margin-top: 10px;
+            max-width: 28ch;
+            color: var(--text-dim);
+            line-height: 1.3;
+        }
+
+        .hint-card {
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 245, 235, 0.04);
+        }
+
+        .hint-card p:first-child {
+            color: var(--accent-soft);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .hint-card p + p {
+            margin-top: 10px;
+            font-size: 0.98rem;
+            line-height: 1.3;
+            color: var(--text-main);
+        }
+
+        .upload-zone {
+            position: relative;
+            margin-top: 22px;
+            padding: 28px 24px;
+            border: 1px dashed rgba(241, 180, 103, 0.34);
+            border-radius: 24px;
+            background:
+                linear-gradient(130deg, rgba(115, 133, 93, 0.08), transparent 44%),
+                rgba(12, 11, 10, 0.34);
+            transition:
+                transform 220ms var(--spring),
+                border-color 220ms var(--spring),
+                background-color 220ms var(--spring);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .upload-zone:hover,
+        .upload-zone.dragover {
+            transform: translateY(-2px) rotate(-0.4deg);
+            border-color: rgba(241, 180, 103, 0.56);
+            background:
+                linear-gradient(130deg, rgba(213, 100, 61, 0.14), transparent 48%),
+                rgba(12, 11, 10, 0.44);
+        }
+
+        .upload-zone.has-file {
+            border-color: rgba(157, 196, 163, 0.62);
+            background:
+                linear-gradient(130deg, rgba(157, 196, 163, 0.16), transparent 42%),
+                rgba(12, 11, 10, 0.44);
+        }
+
+        .upload-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-copy {
+            display: grid;
+            gap: 14px;
+            grid-template-columns: 64px minmax(0, 1fr);
+            align-items: center;
+        }
+
+        .upload-icon {
+            display: grid;
+            place-items: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: rgba(241, 180, 103, 0.12);
+            color: var(--accent-soft);
+            font-size: 1.7rem;
+        }
+
+        .upload-lead {
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: 1.28rem;
+            line-height: 1;
+        }
+
+        .upload-sub {
+            margin-top: 6px;
+            color: var(--text-dim);
+            line-height: 1.35;
+        }
+
+        .filename {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            color: var(--mint);
+            font-size: 0.95rem;
+        }
+
+        .action-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 22px;
+        }
+
+        .btn-submit,
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 15px 22px;
+            border: none;
+            border-radius: 18px;
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition:
+                transform 220ms var(--spring),
+                box-shadow 220ms var(--spring),
+                background-color 220ms var(--spring);
+        }
+
+        .btn-submit {
+            min-width: 220px;
+            background: linear-gradient(125deg, #d5643d 0%, #b24a2d 100%);
+            color: #fff5ee;
+            box-shadow: 0 16px 34px rgba(181, 74, 45, 0.28);
+        }
+
+        .btn-submit:hover:not(:disabled),
+        .btn-download:hover {
+            transform: translateY(-2px) rotate(-0.5deg);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.54;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-download {
+            background: rgba(255, 248, 241, 0.06);
+            border: 1px solid var(--line);
+            color: var(--text-main);
+        }
+
+        .micro-copy {
+            color: var(--text-faint);
+            font-size: 0.88rem;
+        }
+
+        .error-box {
+            display: none;
+            padding: 14px 16px;
+            border-radius: 18px;
+            border: 1px solid rgba(217, 122, 100, 0.32);
+            background: rgba(217, 122, 100, 0.09);
+            color: #f1c7ba;
+            line-height: 1.4;
+        }
+
+        .error-box.show {
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            padding: 24px 26px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .loading-strip {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: 54px minmax(0, 1fr);
+            align-items: center;
+            padding: 18px;
+            border-radius: 20px;
+            border: 1px solid var(--line);
+            background: rgba(255, 248, 241, 0.04);
+        }
+
+        .spinner {
+            width: 54px;
+            height: 54px;
+            border-radius: 18px;
+            border: 1px solid rgba(241, 180, 103, 0.28);
+            background:
+                radial-gradient(circle at 30% 28%, rgba(241, 180, 103, 0.38), transparent 34%),
+                rgba(255, 248, 241, 0.05);
+            position: relative;
+            animation: pulse-box 1.15s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+        }
+
+        .spinner::before,
+        .spinner::after {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(241, 180, 103, 0.4);
+        }
+
+        .spinner::after {
+            inset: 20px;
+            border-color: rgba(157, 196, 163, 0.42);
+        }
+
+        @keyframes pulse-box {
+            0% { transform: rotate(-2deg) scale(1); }
+            45% { transform: rotate(2deg) scale(1.05); }
+            100% { transform: rotate(-2deg) scale(1); }
+        }
+
+        .loading p {
+            color: var(--text-dim);
+        }
+
+        .step-text {
+            margin-top: 6px;
+            color: var(--accent-soft);
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: 1.18rem;
+        }
+
+        .rail {
+            display: grid;
+            gap: 24px;
+            align-content: start;
+        }
+
+        .health-panel,
+        .offers-panel,
+        .side-note {
+            padding: 22px;
+        }
+
+        .health-head,
+        .offers-header,
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .health-title,
+        .offers-title,
+        .panel-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: 1.08rem;
+        }
+
+        .health-title iconify-icon,
+        .offers-title iconify-icon,
+        .panel-title iconify-icon {
+            color: var(--accent-soft);
+            font-size: 1.18rem;
+        }
+
+        .health-grid {
+            display: grid;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .health-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: rgba(255, 248, 241, 0.04);
+            border: 1px solid rgba(255, 248, 241, 0.06);
+        }
+
+        .health-item span {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-main);
+            font-size: 0.92rem;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            box-shadow: 0 0 0 5px rgba(255, 248, 241, 0.04);
+        }
+
+        .dot.green { background: var(--mint); }
+        .dot.red { background: var(--alert); }
+        .dot.gray { background: #6f665f; }
+
+        .offers-header {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .offers-caption {
+            margin-top: 10px;
+            color: var(--text-dim);
+            line-height: 1.3;
+        }
+
+        .offers-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 34px;
+            height: 34px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: rgba(213, 100, 61, 0.16);
+            color: var(--accent-soft);
+            border: 1px solid rgba(213, 100, 61, 0.2);
+            font-family: "Bricolage Grotesque", sans-serif;
+        }
+
+        .toggle-icon {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            transition: transform 220ms var(--spring);
+        }
+
+        .toggle-icon.collapsed {
+            transform: rotate(-90deg);
+        }
+
+        .offers-body {
+            margin-top: 16px;
+            overflow: hidden;
+            transition:
+                max-height 260ms var(--spring),
+                opacity 200ms var(--spring);
+        }
+
+        .offers-body.collapsed {
+            max-height: 0 !important;
+            opacity: 0;
+        }
+
+        .offers-grid {
+            display: grid;
+            gap: 12px;
+            max-height: 600px;
+            padding-right: 6px;
+            overflow-y: auto;
+        }
+
+        .offers-grid::-webkit-scrollbar,
+        .cv-preview::-webkit-scrollbar,
+        .modal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .offers-grid::-webkit-scrollbar-thumb,
+        .cv-preview::-webkit-scrollbar-thumb,
+        .modal-body::-webkit-scrollbar-thumb {
+            border-radius: 999px;
+            background: rgba(255, 248, 241, 0.16);
+        }
+
+        .offer-card {
+            padding: 16px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 248, 241, 0.09);
+            background:
+                linear-gradient(140deg, rgba(255, 248, 241, 0.04), transparent 55%),
+                rgba(13, 11, 10, 0.34);
+            cursor: pointer;
+            transition:
+                transform 220ms var(--spring),
+                border-color 220ms var(--spring),
+                background-color 220ms var(--spring);
+        }
+
+        .offer-card:hover {
+            transform: translateY(-2px) rotate(-0.35deg);
+            border-color: rgba(241, 180, 103, 0.28);
+        }
+
+        .offer-title {
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: 1rem;
+            line-height: 1.05;
+        }
+
+        .offer-company {
+            margin-top: 10px;
+            color: var(--accent-soft);
+            font-size: 0.9rem;
+        }
+
+        .offer-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 14px;
+            color: var(--text-dim);
+            font-size: 0.83rem;
+        }
+
+        .offer-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .offer-empty {
+            padding: 18px;
+            border-radius: 18px;
+            border: 1px dashed rgba(255, 248, 241, 0.12);
+            color: var(--text-dim);
+            line-height: 1.35;
+        }
+
+        .side-note {
+            min-height: 188px;
+            background:
+                linear-gradient(180deg, rgba(13, 11, 10, 0.14), rgba(13, 11, 10, 0.72)),
+                url("https://picsum.photos/seed/desk-note/700/900") center/cover;
+        }
+
+        .side-note .note-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(17, 13, 11, 0.56);
+            border: 1px solid rgba(255, 248, 241, 0.14);
+            color: var(--accent-soft);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .side-note h3 {
+            max-width: 10ch;
+            margin-top: 18px;
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: 2rem;
+            line-height: 0.92;
+        }
+
+        .side-note p {
+            max-width: 18ch;
+            margin-top: 10px;
+            color: #f4e4d1;
+            line-height: 1.35;
+        }
+
+        #results {
+            display: none;
+        }
+
+        #results.show {
+            display: block;
+        }
+
+        .result-banner {
+            display: none;
+            padding: 22px 24px;
+            margin-bottom: 24px;
+        }
+
+        .result-banner.show {
+            display: block;
+        }
+
+        .banner-grid {
+            display: grid;
+            gap: 18px;
+            grid-template-columns: minmax(0, 1fr) 140px;
+            align-items: center;
+        }
+
+        .banner-copy p:first-child {
+            color: var(--text-faint);
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .banner-copy h3 {
+            margin-top: 8px;
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .banner-copy p:last-child {
+            margin-top: 8px;
+            color: var(--text-dim);
+        }
+
+        .sim-box {
+            padding: 18px;
+            border-radius: 20px;
+            background: rgba(255, 248, 241, 0.05);
+            border: 1px solid rgba(255, 248, 241, 0.08);
+            text-align: right;
+        }
+
+        .sim-box span {
+            display: block;
+            color: var(--text-faint);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .sim-box strong {
+            display: block;
+            margin-top: 8px;
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: 2.2rem;
+            color: var(--accent-soft);
+        }
+
+        .results-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            grid-template-areas:
+                "score score"
+                "preview words"
+                "preview edits";
+        }
+
+        .result-panel {
+            padding: 24px;
+        }
+
+        .score-panel { grid-area: score; }
+        .preview-panel { grid-area: preview; }
+        .words-panel { grid-area: words; }
+        .edits-panel { grid-area: edits; }
+
+        .score-grid {
+            display: grid;
+            gap: 14px;
+            grid-template-columns: repeat(4, minmax(140px, 1fr));
+            margin-top: 18px;
+        }
+
+        .score-card {
+            padding: 16px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 248, 241, 0.08);
+            background: rgba(255, 248, 241, 0.04);
+        }
+
+        .score-card .value {
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: 2.3rem;
+            line-height: 0.9;
+        }
+
+        .score-card .label {
+            margin-top: 10px;
+            color: var(--text-dim);
+            font-size: 0.86rem;
+            line-height: 1.25;
+        }
+
+        .score-high { color: var(--mint); }
+        .score-mid { color: var(--accent-soft); }
+        .score-low { color: var(--alert); }
+
+        .keyword-columns {
+            display: grid;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .keyword-block h3,
+        .edits-stack .section h3 {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-main);
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: 1rem;
+        }
+
+        .keyword-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .keyword {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 12px;
+            border-radius: 999px;
+            font-size: 0.84rem;
+            line-height: 1;
+            border: 1px solid transparent;
+        }
+
+        .keyword.found {
+            color: var(--mint);
+            background: rgba(157, 196, 163, 0.12);
+            border-color: rgba(157, 196, 163, 0.2);
+        }
+
+        .keyword.missing {
+            color: #f0bcaf;
+            background: rgba(217, 122, 100, 0.1);
+            border-color: rgba(217, 122, 100, 0.18);
+        }
+
+        .cv-preview {
+            margin-top: 18px;
+            max-height: 620px;
+            overflow-y: auto;
+            padding: 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 248, 241, 0.08);
+            background:
+                linear-gradient(160deg, rgba(255, 248, 241, 0.04), transparent 32%),
+                rgba(14, 12, 10, 0.44);
+            color: var(--text-main);
+            white-space: pre-wrap;
+            line-height: 1.65;
+            font-size: 0.93rem;
+        }
+
+        .preview-actions {
+            margin-top: 16px;
+        }
+
+        .edits-stack {
+            display: grid;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .section {
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(255, 248, 241, 0.04);
+            border: 1px solid rgba(255, 248, 241, 0.08);
+        }
+
+        .change-list {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .change-list li {
+            position: relative;
+            padding: 10px 0 10px 18px;
+            border-bottom: 1px solid rgba(255, 248, 241, 0.08);
+            color: var(--text-dim);
+            line-height: 1.35;
+        }
+
+        .change-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .change-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 16px;
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            background: rgba(7, 7, 7, 0.72);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 180ms var(--spring);
+            z-index: 1000;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            width: min(920px, 100%);
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            background: rgba(27, 21, 18, 0.96);
+            border: 1px solid rgba(255, 248, 241, 0.1);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.46);
+            transform: translateY(16px) rotate(-0.5deg);
+            transition: transform 220ms var(--spring);
+        }
+
+        .modal-overlay.show .modal {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        .modal-header {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: start;
+            padding: 22px 24px 18px;
+            border-bottom: 1px solid rgba(255, 248, 241, 0.08);
+        }
+
+        .modal-kicker {
+            color: var(--text-faint);
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .modal-header h3 {
+            margin-top: 8px;
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-size: 1.9rem;
+            line-height: 0.95;
+        }
+
+        .modal-company {
+            margin-top: 8px;
+            color: var(--accent-soft);
+        }
+
+        .modal-close {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border: 1px solid rgba(255, 248, 241, 0.12);
+            border-radius: 14px;
+            background: rgba(255, 248, 241, 0.04);
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .modal-info {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0 24px 18px;
+            border-bottom: 1px solid rgba(255, 248, 241, 0.08);
+        }
+
+        .modal-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 248, 241, 0.04);
+            border: 1px solid rgba(255, 248, 241, 0.08);
+            color: var(--text-dim);
+        }
+
+        .modal-body {
+            overflow-y: auto;
+            padding: 22px 24px 26px;
+        }
+
+        .modal-body pre {
+            white-space: pre-wrap;
+            color: var(--text-main);
+            font-family: "IBM Plex Sans", sans-serif;
+            font-size: 0.94rem;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 1080px) {
+            .board,
+            .hero-grid,
+            .work-top,
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .results-grid {
+                grid-template-areas:
+                    "score"
+                    "words"
+                    "edits"
+                    "preview";
+            }
+
+            .poster {
+                min-height: 280px;
+                transform: none;
+            }
+
+            .banner-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .page {
+                width: min(100% - 18px, 100%);
+                margin: 10px auto 38px;
+            }
+
+            .hero-panel,
+            .work-panel,
+            .health-panel,
+            .offers-panel,
+            .side-note,
+            .result-panel,
+            .result-banner {
+                padding: 18px;
+            }
+
+            .hero-copy h1 {
+                max-width: none;
+                font-size: clamp(2.4rem, 16vw, 3.6rem);
+            }
+
+            .upload-copy {
+                grid-template-columns: 1fr;
+            }
+
+            .score-grid {
+                grid-template-columns: repeat(2, minmax(120px, 1fr));
+            }
+
+            .btn-submit,
+            .btn-download {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="board">
+            <div class="studio">
+                <section class="panel hero-panel">
+                    <div class="hero-grid">
+                        <div class="hero-copy">
+                            <div class="eyebrow">
+                                <iconify-icon icon="solar:document-text-bold"></iconify-icon>
+                                ATS sin maquillaje
+                            </div>
+                            <h1>
+                                Tu CV
+                                <span>entra</span>
+                                o rebota.
+                            </h1>
+                            <div class="deck">
+                                <p>El ATS no te odia.</p>
+                                <p>Solo no te entiende.</p>
+                                <p>Subelo. Lo dejamos afilado.</p>
+                            </div>
+                            <div class="hero-badges">
+                                <div class="hero-badge">
+                                    <iconify-icon icon="solar:case-round-bold"></iconify-icon>
+                                    <strong id="heroOffersCount">0</strong>
+                                    ofertas listas
+                                </div>
+                                <div class="hero-badge">
+                                    <iconify-icon icon="solar:cpu-bolt-bold"></iconify-icon>
+                                    Ollama local
+                                </div>
+                                <div class="hero-badge">
+                                    <iconify-icon icon="solar:wad-of-money-bold"></iconify-icon>
+                                    Sin humo raro
+                                </div>
+                            </div>
+                        </div>
+                        <div class="poster">
+                            <div class="poster-note">
+                                <p>Modo taller</p>
+                                <p>No vende milagros.</p>
+                                <p>Solo recorta ruido.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel work-panel">
+                    <div class="work-top">
+                        <div>
+                            <div class="section-kicker">
+                                <iconify-icon icon="solar:clapperboard-play-bold"></iconify-icon>
+                                Paso uno
+                            </div>
+                            <h2 class="work-title">Trae el CV.</h2>
+                            <p class="work-note">PDF o TXT. Nada mas.</p>
+                        </div>
+                        <div class="hint-card">
+                            <p>Regla simple</p>
+                            <p>Si suena inflado, se va.</p>
+                        </div>
+                    </div>
+
+                    <div class="upload-zone" id="cvZone">
+                        <input type="file" id="cvFile" accept=".pdf,.txt,.md">
+                        <div class="upload-copy">
+                            <div class="upload-icon">
+                                <iconify-icon icon="solar:inbox-line-bold"></iconify-icon>
+                            </div>
+                            <div>
+                                <div class="upload-lead">Arrastra aqui.</div>
+                                <div class="upload-sub">O pulsa y elige.</div>
+                                <div class="filename" id="cvFilename"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-row">
+                        <button class="btn-submit" id="btnSubmit" onclick="submitOptimize()">
+                            <iconify-icon icon="solar:magic-stick-3-bold"></iconify-icon>
+                            Arreglar mi CV
+                        </button>
+                        <p class="micro-copy">Tarda un rato. Vale la pena.</p>
+                    </div>
+                </section>
+
+                <div class="error-box" id="errorBox"></div>
+
+                <section class="loading" id="loading">
+                    <div class="loading-strip">
+                        <div class="spinner"></div>
+                        <div>
+                            <p>La mesa esta trabajando.</p>
+                            <div class="step-text" id="loadingStep">Ojeando ofertas...</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="results">
+                    <div class="panel result-banner" id="offerMatchCard">
+                        <div class="banner-grid">
+                            <div class="banner-copy">
+                                <p>Oferta cazada</p>
+                                <h3 id="matchedOfferName">-</h3>
+                                <p>Es la que mejor encaja.</p>
+                            </div>
+                            <div class="sim-box">
+                                <span>Match</span>
+                                <strong id="matchedOfferScore">-</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="results-grid">
+                        <article class="panel result-panel score-panel">
+                            <div class="panel-head">
+                                <div class="panel-title">
+                                    <iconify-icon icon="solar:chart-square-bold"></iconify-icon>
+                                    Marcador ATS
+                                </div>
+                                <span class="micro-copy">Sin maquillaje.</span>
+                            </div>
+                            <div class="score-grid" id="scoreGrid"></div>
+                        </article>
+
+                        <article class="panel result-panel preview-panel">
+                            <div class="panel-head">
+                                <div class="panel-title">
+                                    <iconify-icon icon="solar:document-text-bold"></iconify-icon>
+                                    CV limpio
+                                </div>
+                                <span class="micro-copy">Listo para mandar.</span>
+                            </div>
+                            <div class="cv-preview" id="cvPreview"></div>
+                            <div class="preview-actions">
+                                <button class="btn-download" onclick="downloadCV()">
+                                    <iconify-icon icon="solar:download-bold"></iconify-icon>
+                                    Bajar PDF
+                                </button>
+                            </div>
+                        </article>
+
+                        <article class="panel result-panel words-panel">
+                            <div class="panel-head">
+                                <div class="panel-title">
+                                    <iconify-icon icon="solar:hashtag-chat-bold"></iconify-icon>
+                                    Palabras clave
+                                </div>
+                                <span class="micro-copy">Lo que suma.</span>
+                            </div>
+                            <div class="keyword-columns">
+                                <div class="keyword-block">
+                                    <h3>
+                                        <iconify-icon icon="solar:check-circle-bold"></iconify-icon>
+                                        Ya estan
+                                    </h3>
+                                    <div class="keyword-list" id="foundKeywords"></div>
+                                </div>
+                                <div class="keyword-block">
+                                    <h3>
+                                        <iconify-icon icon="solar:danger-triangle-bold"></iconify-icon>
+                                        Aun faltan
+                                    </h3>
+                                    <div class="keyword-list" id="missingKeywords"></div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="panel result-panel edits-panel">
+                            <div class="panel-head">
+                                <div class="panel-title">
+                                    <iconify-icon icon="solar:pen-2-bold"></iconify-icon>
+                                    Lo que toco
+                                </div>
+                                <span class="micro-copy">Sin drama.</span>
+                            </div>
+                            <div class="edits-stack">
+                                <div class="section">
+                                    <h3>
+                                        <iconify-icon icon="solar:rewind-back-bold"></iconify-icon>
+                                        Cambios
+                                    </h3>
+                                    <ul class="change-list" id="changesMade"></ul>
+                                </div>
+                                <div class="section" id="improvementsSection" style="display:none">
+                                    <h3>
+                                        <iconify-icon icon="solar:restart-bold"></iconify-icon>
+                                        Pulido final
+                                    </h3>
+                                    <ul class="change-list" id="improvements"></ul>
+                                </div>
+                                <div class="section" id="recommendationsSection" style="display:none">
+                                    <h3>
+                                        <iconify-icon icon="solar:lightbulb-bold"></iconify-icon>
+                                        Ojo aqui
+                                    </h3>
+                                    <ul class="change-list" id="recommendations"></ul>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="rail">
+                <section class="panel health-panel">
+                    <div class="health-head">
+                        <div class="health-title">
+                            <iconify-icon icon="solar:pulse-bold"></iconify-icon>
+                            Estado real
+                        </div>
+                        <span class="micro-copy">Nada escondido.</span>
+                    </div>
+                    <div class="health-grid" id="healthBar">
+                        <div class="health-item">
+                            <span>
+                                <span class="dot gray" id="dotApi"></span>
+                                API
+                            </span>
+                            <iconify-icon icon="solar:server-2-bold"></iconify-icon>
+                        </div>
+                        <div class="health-item">
+                            <span>
+                                <span class="dot gray" id="dotOllama"></span>
+                                Ollama
+                            </span>
+                            <iconify-icon icon="solar:widget-5-bold"></iconify-icon>
+                        </div>
+                        <div class="health-item">
+                            <span>
+                                <span class="dot gray" id="dotQwen"></span>
+                                Qwen3:8b
+                            </span>
+                            <iconify-icon icon="solar:cpu-bolt-bold"></iconify-icon>
+                        </div>
+                        <div class="health-item">
+                            <span>
+                                <span class="dot gray" id="dotEmbed"></span>
+                                Embeddings
+                            </span>
+                            <iconify-icon icon="solar:database-bold"></iconify-icon>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel offers-panel">
+                    <div class="offers-header" onclick="toggleOffers()">
+                        <div>
+                            <div class="offers-title">
+                                <iconify-icon icon="solar:case-minimalistic-bold"></iconify-icon>
+                                Bolsa viva
+                            </div>
+                            <p class="offers-caption" id="offersCaption">Si no hay ofertas, algo cruje.</p>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:12px">
+                            <span class="offers-count" id="offersCount">0</span>
+                            <iconify-icon class="toggle-icon" id="toggleIcon" icon="solar:alt-arrow-down-bold"></iconify-icon>
+                        </div>
+                    </div>
+                    <div class="offers-body" id="offersBody">
+                        <div class="offers-grid" id="offersGrid">
+                            <div class="offer-empty">Cargando ofertas...</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel side-note">
+                    <div class="note-tag">
+                        <iconify-icon icon="solar:ruler-pen-bold"></iconify-icon>
+                        Regla de mesa
+                    </div>
+                    <h3>Menos humo. Mas encaje.</h3>
+                    <p>Un CV claro gana mas rondas.</p>
+                </section>
+            </aside>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="offerModal" onclick="closeOfferModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div>
+                    <div class="modal-kicker">Oferta abierta</div>
+                    <h3 id="modalTitle"></h3>
+                    <div class="modal-company" id="modalCompany"></div>
+                </div>
+                <button class="modal-close" onclick="closeOfferModal()" aria-label="Cerrar oferta">
+                    <iconify-icon icon="solar:close-circle-bold"></iconify-icon>
+                </button>
+            </div>
+            <div class="modal-info">
+                <span class="modal-pill">
+                    <iconify-icon icon="solar:map-point-bold"></iconify-icon>
+                    <span id="modalLocationText">-</span>
+                </span>
+                <span class="modal-pill">
+                    <iconify-icon icon="solar:wad-of-money-bold"></iconify-icon>
+                    <span id="modalSalaryText">-</span>
+                </span>
+            </div>
+            <div class="modal-body">
+                <pre id="modalText"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let finalCVText = "";
+
+        async function checkHealth() {
+            try {
+                const res = await fetch("/api/health");
+                const data = await res.json();
+                document.getElementById("dotApi").className = "dot green";
+                document.getElementById("dotOllama").className = data.ollama_running ? "dot green" : "dot red";
+                document.getElementById("dotQwen").className = data.qwen3_ready ? "dot green" : "dot red";
+                document.getElementById("dotEmbed").className = data.embeddings_ready ? "dot green" : "dot red";
+            } catch {
+                document.getElementById("dotApi").className = "dot red";
+            }
+        }
+
+        checkHealth();
+
+        async function loadOffers() {
+            try {
+                const res = await fetch("/api/offers");
+                const data = await res.json();
+                const grid = document.getElementById("offersGrid");
+                const count = data.count || 0;
+
+                document.getElementById("offersCount").textContent = count;
+                document.getElementById("heroOffersCount").textContent = count;
+
+                if (data.error) {
+                    document.getElementById("offersCaption").textContent = "La lista no pudo arrancar.";
+                } else if (count > 0) {
+                    document.getElementById("offersCaption").textContent = "Trae " + count + " ofertas listas.";
+                } else {
+                    document.getElementById("offersCaption").textContent = "Hoy no encontro nada.";
+                }
+
+                if (count === 0) {
+                    const note = data.error ? "No salieron. Mira Ollama." : "No hay ofertas cargadas.";
+                    grid.innerHTML = `<div class="offer-empty">${note}</div>`;
+                    return;
+                }
+
+                grid.innerHTML = data.offers.map((offer) => `
+                    <article class="offer-card" onclick="openOfferModal('${offer.filename}')">
+                        <div class="offer-title">${offer.title || offer.filename}</div>
+                        <div class="offer-company">${offer.company || "Empresa sin nombre"}</div>
+                        <div class="offer-meta">
+                            ${offer.location ? `<span><iconify-icon icon="solar:map-point-bold"></iconify-icon>${offer.location}</span>` : ""}
+                            ${offer.salary ? `<span><iconify-icon icon="solar:wad-of-money-bold"></iconify-icon>${offer.salary}</span>` : ""}
+                        </div>
+                    </article>
+                `).join("");
+            } catch (err) {
+                document.getElementById("offersCaption").textContent = "La lista se fue al suelo.";
+                document.getElementById("offersGrid").innerHTML = '<div class="offer-empty">No pude leer las ofertas.</div>';
+                console.error("Error cargando ofertas:", err);
+            }
+        }
+
+        loadOffers();
+
+        function toggleOffers() {
+            const body = document.getElementById("offersBody");
+            const icon = document.getElementById("toggleIcon");
+            body.classList.toggle("collapsed");
+            icon.classList.toggle("collapsed");
+        }
+
+        async function openOfferModal(filename) {
+            try {
+                const res = await fetch(`/api/offers/${encodeURIComponent(filename)}`);
+                if (!res.ok) throw new Error("Oferta no encontrada");
+                const data = await res.json();
+
+                document.getElementById("modalTitle").textContent = data.title || data.filename;
+                document.getElementById("modalCompany").textContent = data.company || "Empresa sin nombre";
+                document.getElementById("modalLocationText").textContent = data.location || "Sin ubicacion";
+                document.getElementById("modalSalaryText").textContent = data.salary || "Sin salario";
+                document.getElementById("modalText").textContent = data.full_text;
+                document.getElementById("offerModal").classList.add("show");
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+        }
+
+        function closeOfferModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById("offerModal").classList.remove("show");
+        }
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") closeOfferModal();
+        });
+
+        ["cvZone"].forEach((id) => {
+            const zone = document.getElementById(id);
+            zone.addEventListener("dragover", (event) => {
+                event.preventDefault();
+                zone.classList.add("dragover");
+            });
+            zone.addEventListener("dragleave", () => zone.classList.remove("dragover"));
+            zone.addEventListener("drop", (event) => {
+                event.preventDefault();
+                zone.classList.remove("dragover");
+                const input = zone.querySelector('input[type="file"]');
+                input.files = event.dataTransfer.files;
+                input.dispatchEvent(new Event("change"));
+            });
+        });
+
+        document.getElementById("cvFile").addEventListener("change", function () {
+            const zone = document.getElementById("cvZone");
+            const name = document.getElementById("cvFilename");
+            if (this.files[0]) {
+                name.innerHTML = '<iconify-icon icon="solar:check-circle-bold"></iconify-icon>' + this.files[0].name;
+                zone.classList.add("has-file");
+            } else {
+                name.textContent = "";
+                zone.classList.remove("has-file");
+            }
+        });
+
+        async function submitOptimize() {
+            const cvFile = document.getElementById("cvFile").files[0];
+            if (!cvFile) return showError("Sube tu CV primero.");
+
+            hideError();
+            showLoading(true);
+
+            const formData = new FormData();
+            formData.append("cv_file", cvFile);
+
+            try {
+                const res = await fetch("/api/optimize", {
+                    method: "POST",
+                    body: formData,
+                });
+                const data = await res.json();
+
+                showLoading(false);
+
+                if (!res.ok) {
+                    return showError(data.detail || "Servidor cansado.");
+                }
+
+                if (!data.success) {
+                    return showError((data.errors || []).join(", ") || "No salio bien.");
+                }
+
+                renderResults(data);
+            } catch (err) {
+                showLoading(false);
+                showError("Sin conexion: " + err.message);
+            }
+        }
+
+        function renderResults(data) {
+            finalCVText = data.final_cv || "";
+
+            if (data.matched_offer && data.matched_offer.filename) {
+                const matchCard = document.getElementById("offerMatchCard");
+                const simScore = Math.round((data.matched_offer.similarity_score || 0) * 100);
+
+                matchCard.classList.add("show");
+                document.getElementById("matchedOfferName").textContent = data.matched_offer.filename;
+                document.getElementById("matchedOfferScore").textContent = simScore + "%";
+            }
+
+            const grid = document.getElementById("scoreGrid");
+            grid.innerHTML = "";
+
+            if (data.ats_score) {
+                const scores = [
+                    { label: "Global", value: data.ats_score.overall_score },
+                    { label: "Keywords", value: data.ats_score.keyword_match },
+                    { label: "Formato", value: data.ats_score.format_score },
+                    { label: "Cobertura", value: data.ats_score.completeness },
+                ];
+
+                scores.forEach((score) => {
+                    const cls = score.value >= 75 ? "score-high" : score.value >= 50 ? "score-mid" : "score-low";
+                    grid.innerHTML += `
+                        <div class="score-card">
+                            <div class="value ${cls}">${Math.round(score.value)}</div>
+                            <div class="label">${score.label}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            renderKeywords("foundKeywords", data.found_keywords, "found", "solar:check-circle-bold");
+            renderKeywords("missingKeywords", data.missing_keywords, "missing", "solar:danger-triangle-bold");
+            renderList("changesMade", data.changes_made);
+
+            if (data.improvements_applied && data.improvements_applied.length > 0) {
+                document.getElementById("improvementsSection").style.display = "block";
+                renderList("improvements", data.improvements_applied);
+            } else {
+                document.getElementById("improvementsSection").style.display = "none";
+            }
+
+            if (data.recommendations && data.recommendations.length > 0) {
+                document.getElementById("recommendationsSection").style.display = "block";
+                renderList("recommendations", data.recommendations);
+            } else {
+                document.getElementById("recommendationsSection").style.display = "none";
+            }
+
+            document.getElementById("cvPreview").textContent = finalCVText;
+            document.getElementById("results").classList.add("show");
+            document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        function renderKeywords(containerId, keywords, type, icon) {
+            const el = document.getElementById(containerId);
+            const values = keywords || [];
+            if (values.length === 0) {
+                el.innerHTML = `<span class="keyword ${type}"><iconify-icon icon="${icon}"></iconify-icon>Nada por aqui</span>`;
+                return;
+            }
+            el.innerHTML = values.map((keyword) => `
+                <span class="keyword ${type}">
+                    <iconify-icon icon="${icon}"></iconify-icon>
+                    ${keyword}
+                </span>
+            `).join("");
+        }
+
+        function renderList(containerId, items) {
+            const el = document.getElementById(containerId);
+            const values = items || [];
+            if (values.length === 0) {
+                el.innerHTML = "<li>Nada para contar.</li>";
+                return;
+            }
+            el.innerHTML = values.map((item) => `<li>${item}</li>`).join("");
+        }
+
+        async function downloadCV() {
+            if (!finalCVText) return;
+
+            try {
+                const formData = new FormData();
+                formData.append("cv_text", finalCVText);
+
+                const res = await fetch("/api/download-pdf", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (!res.ok) throw new Error("No pude sacar el PDF");
+
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = "cv_optimizado.pdf";
+                link.click();
+                URL.revokeObjectURL(url);
+            } catch (err) {
+                alert("Error al bajar PDF: " + err.message);
+            }
+        }
+
+        function showLoading(show) {
+            document.getElementById("loading").classList.toggle("show", show);
+            document.getElementById("btnSubmit").disabled = show;
+
+            if (show) {
+                document.getElementById("results").classList.remove("show");
+                const steps = [
+                    "Ojeando ofertas...",
+                    "Cazando palabras...",
+                    "Quitando relleno...",
+                    "Dejando todo limpio...",
+                ];
+                let index = 0;
+                document.getElementById("loadingStep").textContent = steps[0];
+                window._loadingInterval = setInterval(() => {
+                    index += 1;
+                    document.getElementById("loadingStep").textContent = steps[index % steps.length];
+                }, 2600);
+            } else {
+                clearInterval(window._loadingInterval);
+            }
+        }
+
+        function showError(message) {
+            const box = document.getElementById("errorBox");
+            box.textContent = message;
+            box.classList.add("show");
+            box.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        function hideError() {
+            document.getElementById("errorBox").classList.remove("show");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+Título: Arquitecto de Soluciones Cloud
+Empresa: CloudFirst Consulting
+Ubicación: Madrid (híbrido)
+Salario: 60.000 - 80.000 € brutos/año
+
+Descripción:
+Consultora cloud líder busca Arquitecto de Soluciones para diseñar e implementar infraestructuras cloud para clientes enterprise.
+
+Responsabilidades:
+- Diseño de arquitecturas cloud en AWS, Azure o GCP
+- Implementación de infraestructura como código (Terraform, CloudFormation)
+- Definición de estrategias de migración a cloud
+- Evaluación de seguridad y cumplimiento normativo
+- Mentoría a equipos técnicos de clientes
+
+Requisitos:
+- 7+ años de experiencia en TI, 3+ en cloud
+- Certificaciones AWS Solutions Architect o Azure Solutions Architect
+- Dominio de Terraform, Ansible y Pulumi
+- Experiencia con Kubernetes, Docker y service mesh
+- Conocimiento de redes, VPN y conectividad híbrida
+- Habilidades de comunicación y presentación
+
+Deseable:
+- Experiencia multi-cloud (AWS + Azure + GCP)
+- Conocimiento de compliance (ISO 27001, SOC2, GDPR)
+- Experiencia con FinOps y optimización de costes cloud
+- Experiencia en consultoría
+
+Beneficios:
+- Salario competitivo + bonus por proyectos
+- Coche de empresa
+- Certificaciones pagadas
+- Viajes internacionales

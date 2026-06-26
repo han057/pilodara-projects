@@ -1,0 +1,35 @@
+Título: Desarrollador Frontend React
+Empresa: Digital Innovations SL
+Ubicación: Barcelona (remoto)
+Salario: 35.000 - 45.000 € brutos/año
+
+Descripción:
+Buscamos un Desarrollador Frontend con experiencia en React y TypeScript para unirse a nuestro equipo de producto. Trabajarás en la interfaz de nuestra plataforma SaaS utilizada por más de 100.000 usuarios.
+
+Responsabilidades:
+- Desarrollar componentes UI reutilizables con React y TypeScript
+- Implementar diseños de Figma en código
+- Optimizar rendimiento de la aplicación frontend
+- Integrar con APIs REST y GraphQL
+- Escribir tests con Jest y React Testing Library
+- Participar en sprints ágiles
+
+Requisitos:
+- 3+ años de experiencia con React
+- Dominio de JavaScript/TypeScript
+- Experiencia con Next.js o similar
+- Conocimiento de HTML5, CSS3, Tailwind o Styled Components
+- Experiencia con state management (Redux, Zustand, Context API)
+- Git y trabajo en equipo
+
+Deseable:
+- Experiencia con Storybook
+- Conocimiento de accesibilidad web (WCAG)
+- Experiencia con CI/CD (GitHub Actions)
+- Conocimiento de testing E2E (Cypress, Playwright)
+
+Beneficios:
+- 100% remoto
+- Horario flexible
+- Equipo de última generación
+- Eventos y conferencias pagadas

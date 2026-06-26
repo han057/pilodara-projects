@@ -1,0 +1,2 @@
+[console_scripts]
+optimizador = optimizador.__main__:main

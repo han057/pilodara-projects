@@ -1,0 +1,36 @@
+Título: Desarrollador Python Senior
+Empresa: TechCorp Solutions
+Ubicación: Madrid (híbrido)
+Salario: 45.000 - 55.000 € brutos/año
+
+Descripción:
+Buscamos un Desarrollador Python Senior con experiencia en desarrollo de aplicaciones web y APIs RESTful. El candidato ideal tendrá al menos 5 años de experiencia trabajando con Python y frameworks modernos.
+
+Responsabilidades:
+- Diseñar y desarrollar APIs REST con FastAPI o Django REST Framework
+- Implementar microservicios escalables
+- Colaborar con el equipo de frontend para integrar APIs
+- Escribir pruebas unitarias e integration tests
+- Participar en code reviews y mentoring de juniors
+- Diseñar schemas de bases de datos relacionales
+
+Requisitos:
+- 5+ años de experiencia con Python
+- Dominio de FastAPI o Django
+- Experiencia con PostgreSQL y SQLAlchemy
+- Conocimiento de Docker y CI/CD
+- Experiencia con Redis, Celery o RabbitMQ
+- Git y metodologías ágiles (Scrum)
+- Conocimientos de AWS o GCP
+
+Deseable:
+- Experiencia con Kubernetes
+- Conocimiento de GraphQL
+- Experiencia con testing automatizado (pytest)
+- Contribuciones a proyectos open source
+
+Beneficios:
+- Seguro médico privado
+- Tickets restaurante
+- Formación continua y certificaciones
+- Flexibilidad horaria

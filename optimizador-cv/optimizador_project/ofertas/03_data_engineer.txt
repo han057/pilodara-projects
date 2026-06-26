@@ -1,0 +1,35 @@
+Título: Data Engineer
+Empresa: DataDriven Analytics
+Ubicación: Valencia (presencial)
+Salario: 40.000 - 50.000 € brutos/año
+
+Descripción:
+Buscamos un Data Engineer para diseñar y mantener nuestra infraestructura de datos. Trabajarás con grandes volúmenes de datos y construirás pipelines ETL robustos.
+
+Responsabilidades:
+- Diseñar y mantener pipelines ETL/ELT
+- Construir data warehouses y data lakes
+- Optimizar consultas SQL para grandes volúmenes
+- Implementar soluciones con Apache Spark y Airflow
+- Colaborar con data scientists para productionizar modelos ML
+- Monitorizar calidad de datos
+
+Requisitos:
+- 3+ años de experiencia en ingeniería de datos
+- Dominio de SQL avanzado (PostgreSQL, BigQuery)
+- Experiencia con Python para scripting de datos
+- Conocimiento de Apache Spark, Airflow o dbt
+- Experiencia con AWS (S3, Glue, Redshift) o GCP (BigQuery, Dataflow)
+- Conocimiento de Docker
+
+Deseable:
+- Experiencia con Kafka o streaming de datos
+- Conocimiento de Terraform
+- Experiencia con Snowflake
+- Certificaciones en cloud (AWS/GCP)
+
+Beneficios:
+- Seguro médico
+- Plan de formación
+- Comedor de empresa
+- Plan de pensiones

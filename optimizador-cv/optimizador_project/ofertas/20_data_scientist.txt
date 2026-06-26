@@ -1,0 +1,35 @@
+Título: Data Scientist / Científico de Datos
+Empresa: AI Insights Lab
+Ubicación: Barcelona (remoto)
+Salario: 48.000 - 65.000 € brutos/año
+
+Descripción:
+Laboratorio de inteligencia artificial busca Data Scientist para desarrollar modelos de machine learning aplicados a problemas reales de negocio.
+
+Responsabilidades:
+- Desarrollo de modelos de ML (clasificación, regresión, NLP)
+- Análisis exploratorio de datos y feature engineering
+- Despliegue de modelos en producción con MLflow y Docker
+- Experimentación y evaluación de modelos
+- Comunicación de resultados a stakeholders no técnicos
+- Colaboración con ingenieros de datos para pipelines
+
+Requisitos:
+- 3+ años de experiencia como Data Scientist
+- Dominio de Python (scikit-learn, pandas, numpy)
+- Experiencia con frameworks de deep learning (PyTorch, TensorFlow)
+- Conocimiento de NLP (spaCy, HuggingFace, transformers)
+- SQL avanzado y bases de datos
+- Experiencia con MLflow, DVC o herramientas de MLOps
+
+Deseable:
+- PhD o Máster en áreas cuantitativas
+- Publicaciones en conferencias de ML/AI
+- Experiencia con computer vision
+- Conocimiento de estadística bayesiana
+
+Beneficios:
+- 100% remoto
+- GPU cloud para experimentación
+- Presupuesto para papers y conferencias
+- Horario flexible total

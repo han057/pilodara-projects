@@ -1,0 +1,54 @@
+[project]
+name = "optimizador"
+version = "1.0.0"
+description = "Sistema multi-agente inteligente para optimización de currículums"
+authors = [{name = "Matias", email = "matias@example.com"}]
+requires-python = ">=3.9"
+dependencies = [
+    "langgraph>=0.2.0",
+    "langchain>=0.3.0",
+    "langchain-community>=0.3.0",
+    "langchain-ollama>=0.2.0",
+    "langchain-text-splitters>=0.3.0",
+    "langchain-chroma>=0.5.0",
+    "chromadb>=0.5.0",
+    "pypdf>=5.0.0",
+    "pydantic>=2.0.0",
+    "ollama>=0.4.0",
+    "requests>=2.31.0",
+    "fastapi>=0.115.0",
+    "uvicorn>=0.32.0",
+    "python-multipart>=0.0.12",
+    "fpdf2>=2.8.0",
+]
+dynamic = ["optional-dependencies"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+optional-dependencies = {dev = {file = ["dev-requirements.txt"]}}
+
+[tool.setuptools]
+packages = ["optimizador"]
+
+
+[project.scripts]
+optimizador = "optimizador.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/user/optimizador-cv"
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: marks tests as integration tests (require Ollama)",
+]
+addopts = "--strict-markers"
+testpaths = ["tests"]
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+Título: Analista de Datos / Business Intelligence
+Empresa: RetailMax Group
+Ubicación: Zaragoza (presencial)
+Salario: 30.000 - 40.000 € brutos/año
+
+Descripción:
+Grupo retail líder busca Analista de Datos para transformar datos de ventas en insights accionables que impulsen la estrategia comercial.
+
+Responsabilidades:
+- Creación de dashboards y reportes en Power BI y Tableau
+- Análisis de datos de ventas, clientes y operaciones
+- Desarrollo de modelos predictivos básicos
+- Automatización de reportes con Python y SQL
+- Presentación de hallazgos a dirección comercial
+
+Requisitos:
+- 2+ años de experiencia en análisis de datos o BI
+- Dominio de SQL avanzado y bases de datos relacionales
+- Experiencia con Power BI, Tableau o Looker
+- Conocimiento de Python para análisis (pandas, matplotlib)
+- Excel avanzado y modelado financiero
+- Habilidades de comunicación y presentación
+
+Deseable:
+- Experiencia en sector retail o e-commerce
+- Conocimiento de Google Analytics y herramientas de marketing
+- Experiencia con ETL (Talend, dbt)
+- Grado en Estadística, Economía o similar
+
+Beneficios:
+- Plan de carrera claro
+- Descuentos de empleado (40%)
+- Comedor de empresa
+- Seguro médico

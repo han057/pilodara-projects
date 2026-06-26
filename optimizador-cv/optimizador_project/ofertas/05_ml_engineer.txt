@@ -1,0 +1,36 @@
+Título: Machine Learning Engineer
+Empresa: AI Solutions España
+Ubicación: Barcelona (híbrido)
+Salario: 55.000 - 70.000 € brutos/año
+
+Descripción:
+Buscamos un ML Engineer para diseñar, entrenar y desplegar modelos de machine learning en producción. Trabajarás en proyectos de NLP, computer vision y recommendation systems.
+
+Responsabilidades:
+- Diseñar y entrenar modelos de ML/DL
+- Deploy de modelos con MLflow, Kubernetes o SageMaker
+- Optimizar modelos para rendimiento en producción
+- Implementar MLOps pipelines completos
+- Colaborar con data scientists y product managers
+- Monitorizar modelos en producción (drift, performance)
+
+Requisitos:
+- 3+ años de experiencia en ML engineering
+- Dominio de Python, PyTorch o TensorFlow
+- Experiencia con NLP (transformers, Hugging Face)
+- Conocimiento de MLOps (MLflow, Kubeflow, SageMaker)
+- Experiencia con APIs de modelos (FastAPI, gRPC)
+- Conocimiento de cloud (AWS SageMaker o GCP Vertex AI)
+- Matemáticas y estadística sólidas
+
+Deseable:
+- Publicaciones en conferencias ML
+- Experiencia con LLMs y fine-tuning
+- Conocimiento de computer vision
+- PhD en área relacionada
+
+Beneficios:
+- Proyectos de investigación
+- Conferencias internacionales
+- GPU clusters dedicados
+- Equity en la empresa

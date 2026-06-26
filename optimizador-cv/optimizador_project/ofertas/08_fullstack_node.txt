@@ -1,0 +1,34 @@
+Título: Desarrollador Full Stack Node.js
+Empresa: StartupHub Digital
+Ubicación: Madrid (remoto)
+Salario: 42.000 - 55.000 € brutos/año
+
+Descripción:
+Startup tecnológica en crecimiento busca Desarrollador Full Stack Node.js para unirse al equipo de producto. Trabajarás en una plataforma SaaS con miles de usuarios activos.
+
+Responsabilidades:
+- Desarrollo de APIs con Node.js, Express y TypeScript
+- Implementación de frontend con React y Next.js
+- Diseño de schemas en MongoDB y Redis
+- Integración de servicios de terceros (Stripe, SendGrid)
+- Testing unitario e integración con Jest
+
+Requisitos:
+- 3+ años de experiencia con Node.js y TypeScript
+- Experiencia con React, Redux y Next.js
+- Dominio de MongoDB y diseño de APIs RESTful
+- Conocimiento de Docker y despliegue en AWS
+- Git, ESLint y prácticas de código limpio
+- Experiencia con metodologías ágiles
+
+Deseable:
+- Experiencia con GraphQL y Apollo
+- Conocimiento de WebSockets y Socket.io
+- Experiencia en startups o productos SaaS
+- Contribuciones a open source
+
+Beneficios:
+- 100% remoto desde cualquier ubicación
+- Horario flexible
+- Equipo de última generación
+- Retiros de equipo semestrales

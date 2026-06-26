@@ -1,0 +1,35 @@
+Título: Product Manager Tech
+Empresa: InnovateTech Solutions
+Ubicación: Madrid (híbrido)
+Salario: 50.000 - 65.000 € brutos/año
+
+Descripción:
+Empresa tecnológica en expansión busca Product Manager para liderar el desarrollo de productos digitales B2B. Reportarás directamente al CPO.
+
+Responsabilidades:
+- Definición de roadmap y estrategia de producto
+- Priorización de backlog con criterios de negocio
+- Análisis de datos de producto y métricas clave
+- Colaboración con equipos de desarrollo y diseño
+- Gestión de stakeholders y comunicación ejecutiva
+- Definición de KPIs y seguimiento de OKRs
+
+Requisitos:
+- 4+ años de experiencia como Product Manager en tech
+- Experiencia con herramientas de analítica (Mixpanel, Amplitude)
+- Conocimiento técnico básico (APIs, bases de datos)
+- Experiencia con metodologías ágiles (Scrum, Kanban)
+- Habilidades de comunicación y liderazgo
+- Inglés fluido (C1 mínimo)
+
+Deseable:
+- MBA o formación complementaria
+- Experiencia en productos SaaS B2B
+- Conocimiento de SQL para consultas de datos
+- Certificación en Product Management
+
+Beneficios:
+- Stock options
+- Plan de formación
+- 28 días de vacaciones
+- Comedor de empresa

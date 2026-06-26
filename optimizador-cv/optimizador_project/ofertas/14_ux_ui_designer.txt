@@ -1,0 +1,35 @@
+Título: Diseñador UX/UI Senior
+Empresa: DesignLab Creative
+Ubicación: Barcelona (híbrido)
+Salario: 38.000 - 48.000 € brutos/año
+
+Descripción:
+Agencia de diseño digital busca Diseñador UX/UI Senior para proyectos de clientes del sector fintech y salud.
+
+Responsabilidades:
+- Investigación de usuarios y creación de personas
+- Diseño de wireframes, prototipos y mockups
+- Creación de design systems y guías de estilo
+- Testing de usabilidad con usuarios reales
+- Colaboración estrecha con equipos de desarrollo
+- Presentación de propuestas a clientes
+
+Requisitos:
+- 4+ años de experiencia en UX/UI
+- Dominio de Figma (componentes, prototipos, auto-layout)
+- Experiencia con herramientas de research (Hotjar, Maze)
+- Conocimiento de HTML/CSS para comunicación con devs
+- Portfolio con proyectos de diseño complejos
+- Habilidades de storytelling y presentación
+
+Deseable:
+- Experiencia en fintech o salud
+- Conocimiento de accesibilidad (WCAG 2.1)
+- Animaciones con Principle o Lottie
+- Ilustración o diseño gráfico complementario
+
+Beneficios:
+- Horario intensivo de verano
+- Presupuesto para herramientas y formación
+- Ambiente creativo y colaborativo
+- Seguros médico y dental

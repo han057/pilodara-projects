@@ -1,0 +1,12 @@
+dev-requirements.txt
+pyproject.toml
+optimizador/__init__.py
+optimizador/__main__.py
+optimizador/config.py
+optimizador.egg-info/PKG-INFO
+optimizador.egg-info/SOURCES.txt
+optimizador.egg-info/dependency_links.txt
+optimizador.egg-info/entry_points.txt
+optimizador.egg-info/requires.txt
+optimizador.egg-info/top_level.txt
+tests/test_optimizador.py

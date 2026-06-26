@@ -1,0 +1,33 @@
+Título: Ingeniero de Datos (Data Engineer)
+Empresa: DataVision Analytics
+Ubicación: Valencia (híbrido)
+Salario: 38.000 - 48.000 € brutos/año
+
+Descripción:
+Buscamos un Ingeniero de Datos para diseñar y mantener la infraestructura de datos de nuestra plataforma de analítica. Trabajarás con grandes volúmenes de datos y tecnologías cloud.
+
+Responsabilidades:
+- Diseño e implementación de pipelines ETL/ELT con Apache Spark
+- Construcción de data warehouses y data lakes
+- Optimización de consultas SQL y rendimiento de bases de datos
+- Integración de fuentes de datos heterogéneas
+- Colaboración con analistas y científicos de datos
+
+Requisitos:
+- 3+ años de experiencia en ingeniería de datos
+- Dominio de Python y SQL avanzado
+- Experiencia con Apache Spark, Airflow y Kafka
+- Conocimiento de AWS (S3, Glue, Redshift) o GCP (BigQuery, Dataflow)
+- Experiencia con bases de datos SQL y NoSQL
+- Docker y herramientas de orquestación
+
+Deseable:
+- Certificaciones AWS o GCP en datos
+- Experiencia con Snowflake o Databricks
+- Conocimiento de dbt o herramientas de transformación
+
+Beneficios:
+- Trabajo híbrido flexible
+- Presupuesto de formación anual
+- Stock options
+- Equipo MacBook Pro

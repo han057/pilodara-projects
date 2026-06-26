@@ -1,0 +1,35 @@
+Título: Ingeniero de Ciberseguridad
+Empresa: SecureNet Systems
+Ubicación: Madrid (presencial)
+Salario: 50.000 - 65.000 € brutos/año
+
+Descripción:
+Empresa de ciberseguridad busca Ingeniero de Seguridad para proteger infraestructuras críticas y realizar auditorías de seguridad para clientes enterprise.
+
+Responsabilidades:
+- Realización de pentesting y auditorías de seguridad
+- Análisis de vulnerabilidades y remediation
+- Implementación de WAF, IDS/IPS y firewalls
+- Monitorización de amenazas con SIEM (Splunk, ELK)
+- Respuesta a incidentes de seguridad
+- Elaboración de informes técnicos
+
+Requisitos:
+- 4+ años de experiencia en ciberseguridad
+- Certificación OSCP, CEH o similar
+- Experiencia con herramientas de pentesting (Burp Suite, Metasploit, Nmap)
+- Conocimiento de redes TCP/IP, VPN, firewalls
+- Scripting en Python o Bash
+- Conocimiento de OWASP Top 10 y normativas de seguridad
+
+Deseable:
+- Experiencia con cloud security (AWS Security, Azure Sentinel)
+- Conocimiento de criptografía y PKI
+- Experiencia en threat hunting
+- Certificación CISSP
+
+Beneficios:
+- Seguro médico premium
+- Certificaciones pagadas
+- Acceso a laboratorios de hacking
+- Bonus por certificaciones obtenidas

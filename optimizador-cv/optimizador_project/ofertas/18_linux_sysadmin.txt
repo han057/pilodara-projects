@@ -1,0 +1,35 @@
+Título: Administrador de Sistemas Linux
+Empresa: HostPro Infrastructure
+Ubicación: Málaga (híbrido)
+Salario: 35.000 - 45.000 € brutos/año
+
+Descripción:
+Proveedor de servicios de hosting empresarial busca Administrador de Sistemas Linux para gestionar infraestructura de servidores y servicios cloud.
+
+Responsabilidades:
+- Administración de servidores Linux (Ubuntu, CentOS, RHEL)
+- Gestión de servicios: DNS, DHCP, email, web servers
+- Automatización con Ansible, Puppet o Chef
+- Monitorización con Zabbix, Prometheus y Grafana
+- Gestión de backups y disaster recovery
+- Soporte técnico nivel 2 y 3
+
+Requisitos:
+- 3+ años administrando sistemas Linux en producción
+- Dominio de Bash scripting y automatización
+- Experiencia con Apache, Nginx y reverse proxies
+- Conocimiento de redes, firewalls y VPN
+- Experiencia con virtualización (VMware, Proxmox)
+- Docker y contenedores básicos
+
+Deseable:
+- Certificación RHCE o LPIC
+- Experiencia con Ansible Tower
+- Conocimiento de bases de datos (MySQL, PostgreSQL)
+- Experiencia con storage (Ceph, NFS, iSCSI)
+
+Beneficios:
+- Turnos rotativos con compensación
+- Seguro médico privado
+- Certificaciones técnicas pagadas
+- Teletrabajo parcial

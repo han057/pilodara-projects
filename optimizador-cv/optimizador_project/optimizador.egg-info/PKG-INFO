@@ -1,0 +1,33 @@
+Metadata-Version: 2.4
+Name: optimizador
+Version: 1.0.0
+Summary: Sistema multi-agente inteligente para optimización de currículums
+Author-email: Matias <matias@example.com>
+Project-URL: Homepage, https://github.com/user/optimizador-cv
+Requires-Python: >=3.9
+Requires-Dist: langgraph>=0.2.0
+Requires-Dist: langchain>=0.3.0
+Requires-Dist: langchain-community>=0.3.0
+Requires-Dist: langchain-ollama>=0.2.0
+Requires-Dist: langchain-text-splitters>=0.3.0
+Requires-Dist: langchain-chroma>=0.5.0
+Requires-Dist: chromadb>=0.5.0
+Requires-Dist: pypdf>=5.0.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: ollama>=0.4.0
+Requires-Dist: requests>=2.31.0
+Requires-Dist: fastapi>=0.115.0
+Requires-Dist: uvicorn>=0.32.0
+Requires-Dist: python-multipart>=0.0.12
+Requires-Dist: fpdf2>=2.8.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: isort>=5.12.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: python-dotenv>=1.0.0; extra == "dev"
+Requires-Dist: setuptools>=65.0.0; extra == "dev"
+Requires-Dist: wheel>=0.40.0; extra == "dev"
+Requires-Dist: build>=0.10.0; extra == "dev"

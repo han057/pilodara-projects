@@ -1,0 +1,34 @@
+Título: Desarrollador Go (Golang) Backend
+Empresa: ScaleTech Platforms
+Ubicación: Bilbao (híbrido)
+Salario: 45.000 - 60.000 € brutos/año
+
+Descripción:
+Plataforma de microservicios de alto rendimiento busca Desarrollador Go para construir servicios de infraestructura y APIs de alta concurrencia.
+
+Responsabilidades:
+- Desarrollo de microservicios en Go (Golang)
+- Diseño de APIs gRPC y RESTful de alto rendimiento
+- Implementación de sistemas de colas y procesamiento asíncrono
+- Optimización de rendimiento y reducción de latencia
+- Integración con bases de datos distribuidas
+
+Requisitos:
+- 3+ años de experiencia con Go (Golang)
+- Experiencia con gRPC, Protocol Buffers y REST
+- Conocimiento de PostgreSQL, Redis y MongoDB
+- Experiencia con concurrencia, goroutines y channels
+- Docker, Kubernetes y Helm
+- Experiencia con testing (go test, testify)
+
+Deseable:
+- Experiencia con sistemas distribuidos
+- Conocimiento de NATS o Apache Kafka
+- Experiencia con observabilidad (Prometheus, Grafana, Jaeger)
+- Contribuciones a proyectos Go en open source
+
+Beneficios:
+- Salario competitivo + bonus
+- Trabajo híbrido flexible
+- Equipos de última generación
+- Conferencias técnicas pagadas

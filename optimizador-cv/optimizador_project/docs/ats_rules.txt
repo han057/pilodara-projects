@@ -1,0 +1,74 @@
+# REGLAS DE SISTEMAS ATS (Applicant Tracking Systems)
+
+## 1. Formatos Compatibles
+
+### Recomendado
+- **Extensión**: .docx, .pdf
+- **Fuente**: Arial, Calibri, Helvetica, Times New Roman
+- **Tamaño fuente**: 10-12pt (mínimo 9pt)
+- **Estructura**: Clara jerarquía con encabezados bien definidos
+
+### Problemas Comunes
+- Tablas complejas (los ATS pueden no interpretarlas correctamente)
+- Imágenes y gráficos (muchos ATS no los leen)
+- Fondos de color o bordes decorativos
+- Headers/Footers (información importante no se captura)
+- Columnas múltiples (puede causar reordenamiento del texto)
+
+## 2. Palabras Clave (Keywords)
+
+### Importancia
+- Los ATS buscan coincidencias exactas de palabras clave
+- Deben aparecer en el CV, no en una "nota" aparte
+- Usa terminología estándar de la industria
+
+### Estrategias
+- Revisa la oferta de empleo y copia palabras clave literales
+- Incluye sinónimos relevantes: "Python" → "Python", "Python 3.8", "Python development"
+- No abuses: Keywords must seem natural
+- Coloca las más importantes en los primeros 100 palabras
+
+## 3. Estructura Recomendada
+
+### Secciones Estándar (en este orden)
+1. **Nombre y Contacto** - Claro y legible
+2. **Resumen Profesional** - 2-3 líneas con palabras clave
+3. **Experiencia Laboral** - En orden inverso cronológico
+4. **Habilidades Técnicas** - Separadas por categoría
+5. **Educación** - Títulos, universidades, fechas
+6. **Certificaciones** - Si es relevante
+7. **Idiomas** - Si es relevante
+
+### Qué NO incluir
+- Foto (a menos que sea específicamente solicitado)
+- Información personal sensible (DNI, edad, religión)
+- Referencias de contacto (ofrécelas si lo piden)
+- QR codes o enlaces en lugar de URLs normales
+
+## 4. Elementos que Mejoran Puntuación ATS
+
+✓ Usar bullets en lugar de párrafos largos  
+✓ Consistencia en formatos de fecha (DD/MM/YYYY o MM/YYYY)  
+✓ Números y métricas cuantificables: "Aumenté ventas 30%"  
+✓ Verbos de acción: Implemented, Managed, Led, Developed  
+✓ Títulos de secciones estándar: "Work Experience", "Technical Skills"  
+✓ Espacios en blanco razonable  
+✓ Sin acentos en nombres de habilidades técnicas  
+
+## 5. Errores Frecuentes que Afectan ATS
+
+✗ Demasiado largo (> 2 páginas afecta parsing)  
+✗ Fechas inconsistentes o confusas  
+✗ Caracteres especiales sin escapar en PDF  
+✗ Nombres de empresas con caracteres raros  
+✗ No usar términos estándar de la industria  
+✗ Cambios excesivos entre mayúsculas/minúsculas  
+
+## 6. Testing de Compatibilidad ATS
+
+Pasos para verificar:
+1. Copia el contenido del PDF a un editor de texto plano
+2. ¿Se preserva la estructura?
+3. ¿Están presentes todas las palabras clave?
+4. ¿El formato es legible?
+5. Prueba en sitios como "jobscan.co" o "resumeworded.com"

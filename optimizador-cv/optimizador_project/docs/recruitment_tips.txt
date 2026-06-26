@@ -1,0 +1,153 @@
+# CONSEJOS DE RECLUTADORES Y ESPECIALISTAS EN SELECCIÓN
+
+## 1. Qué Buscan los Reclutadores en 10 Segundos
+
+### Primera Impresión Cuenta
+- **Formato legible**: ¿Se puede escanear rápidamente?
+- **Experiencia visible**: ¿Veo experiencia relevante?
+- **Palabras clave**: ¿Hay match con lo que buscamos?
+
+### Criterios de Screening Rápido
+✓ Experiencia en rol similar (2+ años)  
+✓ Tecnologías exactas mencionadas  
+✓ Longevidad en empleos anteriores (no cambios cada 3 meses)  
+✓ Progresión de carriera clara  
+
+✗ Demasiadas faltas de ortografía  
+✗ Experiencia irrelevante  
+✗ Gaps inexplicados en empleo  
+✗ CV muy largo o confuso  
+
+## 2. Errores Más Comunes que Descalifican
+
+1. **Errores de ortografía/gramática**: Señal de falta de atención
+2. **CV genérico sin adaptación**: No muestra interés específico
+3. **Falta de números/métricas**: No puedes demostrar tu valor
+4. **Demasiado técnico sin contexto**: El reclutador no entiende
+5. **Falta de claridad**: Hay que leer dos veces para entender
+6. **Experiencia irrelevante destacada**: Indica falta de foco
+7. **Huecos sin explicación**: Levanta banderas rojas
+8. **CV muy largo**: Indica falta de síntesis
+
+## 3. Lo Que TE DIFERENCIA
+
+### Factor Diferenciador 1: NÚMEROS
+- "Aumenté conversiones" ❌
+- "Aumenté conversiones 35%, generando $500K en revenue" ✓
+
+### Factor Diferenciador 2: IMPACTO
+- "Implementé nuevos procesos" ❌
+- "Diseñé e implementé proceso que redujo ciclos de QA en 50%, acelerando time-to-market" ✓
+
+### Factor Diferenciador 3: RELEVANCIA
+- Lista todas tus habilidades ❌
+- Destaca habilidades relevantes para el puesto ✓
+
+### Factor Diferenciador 4: PROGRESIÓN
+- Muestra crecimiento: Desarrollador → Senior → Lead ✓
+
+## 4. Por Qué los Reclutadores IGNORAN CVs
+
+| Razón | Frecuencia |
+|-------|-----------|
+| Errores de ortografía | 45% |
+| Falta de palabras clave ATS | 38% |
+| Formato confuso | 32% |
+| Experiencia no relevante | 28% |
+| CV muy largo | 25% |
+| Falta de cuantificables | 40% |
+
+## 5. Señales Positivas para Reclutadores
+
+✓ **Progresión clara**: Muestra crecimiento de responsabilidad  
+✓ **Logros medibles**: Números que demuestran valor  
+✓ **Estabilidad**: 3+ años en cada puesto (sin saltar constantemente)  
+✓ **Relevancia**: Experiencia en el sector/tecnología  
+✓ **Impacto**: No solo "lo que hiciste" sino "qué cambió"  
+✓ **Palabras clave**: Muestra que entiende la industria  
+✓ **Formato profesional**: Demuestra cuidado y atención  
+
+## 6. Estrategias de Personalización
+
+### Antes de Enviar:
+1. **Match de 70%**: Si cubres 70%+ de requisitos, aplica
+2. **Palabras clave**: Copia 5-10 del job posting y verifica que estén en tu CV
+3. **Resumen adaptado**: Usa palabras de la oferta en tu resumen
+4. **Experiencia reordenada**: Pon primero lo más relevante
+5. **Talentos destacados**: Resalta lo que falta vs. lo que tienes
+
+### Tip Pro
+Modifica ligeramente el CV para cada candidatura (~15 min por cambio). Aumenta 25-40% las posibilidades de pasar ATS.
+
+## 7. La Historia de Tu Carriera Importa
+
+### Narrativa Fuerte
+- Muestro crecimiento: Rol junior → Rol senior ✓
+- Muestro especialización: Cambie de Junior Dev a Data Engineer Dev ✓
+- Muestro impacto: Cada rol tenía mayor responsabilidad ✓
+
+### Narrativa Débil
+- Salté entre muchos roles sin progresión ❌
+- Descripciones genéricas sin diferenciación ❌
+- No se ve qué aprendiste o cómo creciste ❌
+
+## 8. Rojo Flags (Señales de Alerta)
+
+| Bandera Roja | Lo que los reclutadores piensan |
+|--------------|--------------------------------|
+| Cambios de trabajo cada 6 meses | "No mantiene compromisos" |
+| Huecos de 1+ años sin explicación | "¿Qué pasó aquí?" |
+| CV con antigüedad > 2 años | "¿Aún trabaja?" |
+| Contacto incorrecto/incompleto | "¿Cómo contactarlo?" |
+| Experiencia no relacionada | "No entiende el rol" |
+| Demasiado texto, sin formato | "¿Cuál es el resumen?" |
+
+## 9. Carta de Presentación (Si te la Piden)
+
+### Estructura
+1. **Enganche**: Por qué te interesa esta posición específica
+2. **Relevancia**: Cómo tu experiencia encaja
+3. **Valor agregado**: Qué específicamente puedes aportar
+4. **Call to action**: Disponibilidad para entrevista
+
+### No hagas esto
+- Genérica para cualquier puesto
+- Párrafos de más de 4 líneas
+- Repetir exactamente lo del CV
+- Hablar de lo que deseas aprender (enfócate en qué aportas)
+
+## 10. Después de Enviar
+
+### Timing
+- **Mejor momento**: Martes-jueves, 9am-5pm
+- **Evita**: Lunes (saturados), viernes tarde, fines de semana
+
+### Follow-up
+- Espera 5-7 días antes de hacer follow-up
+- Si contactas: "Sigo interesado, verifico si hay updates"
+- Máximo 2 follow-ups
+
+### Red Signals en Respuesta
+- No te contestan en 10 días → Probablemente no pasaste ATS
+- Email automático de "recibido" → Buena señal, alguien lo verá
+- Llamada en 48 horas → Eres candidato fuerte
+
+## 11. Resumen: Los 5 Puntos Más Importantes
+
+1. **Personaliza para cada puesto**: No envíes CV genérico
+2. **Incluye números**: Cada logro debe tener métrica
+3. **Palabras clave ATS**: Que sean naturales pero presentes
+4. **Limpio y claro**: Fácil de leer en 10 segundos
+5. **Revisión ortográfica**: Un error te descalifica
+
+---
+
+## Consejo Final de Reclutadores
+
+> "Recibimos 100+ CVs por día. Los que pasan son aquellos que:
+> (1) Se vea que realmente entienden el rol,
+> (2) Tienen evidencia clara de poder hacerlo,
+> (3) Muestran crecimiento y responsabilidad.
+> 
+> Si tu CV dice 'Trabajé en X' sin números y sin claridad, 
+> acabamos en la carpeta de 'maybe'. Hazlo obvio por qué eres candidato."
